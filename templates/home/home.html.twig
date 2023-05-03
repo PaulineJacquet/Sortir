@@ -33,7 +33,11 @@
         </tbody>
     </table>
 
-    <a class="customBTN" href="{{ path('app_sorties') }}">Créer une sortie</a>
+    {% if app.user %}
+        <a class="customBTN" href="{{ path('app_sorties') }}">Créer une sortie</a>
+    {% else %}
+        <a class="customBTN" href="{{ path('app_login') }}">Créer une sortie</a>
+    {% endif %}
 
 {% endblock %}
 
