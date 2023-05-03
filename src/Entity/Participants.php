@@ -25,7 +25,7 @@ class Participants
     #[ORM\Column(length: 15, nullable: true)]
     private ?string $telephone = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 20, unique:true)]
     private ?string $mail = null;
 
     #[ORM\Column(length: 20)]
