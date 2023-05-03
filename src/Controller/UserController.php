@@ -13,9 +13,7 @@ class UserController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         return $this->render('user/login.html.twig', [
-            'loginForm' => $this->createForm(LoginFormType::class)->createView(),
-            'last_username' => $authenticationUtils->getLastUsername(),
-            'error' => $authenticationUtils->getLastAuthenticationError(),
+
         ]);
     }
 }
