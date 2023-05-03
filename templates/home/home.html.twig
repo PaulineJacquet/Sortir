@@ -21,11 +21,11 @@
             {% for sortie in sorties %}
                 <tr>
                     <td>{{ sortie.nom }}</td>
-                    <td>{{ sortie.dateHeureDebut|date('d/m/Y H:i') }}</td>
-                    <td>{{ sortie.dateLimiteInscription|date('d/m/Y') }}</td>
+                    <td>{{ sortie.dateHeureDebut|date('d/m/y - H:i') }}</td>
+                    <td>{{ sortie.dateLimiteInscription|date('d/m/y') }}</td>
                     <td>{{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</td>
                     <td>{{ sortie.etat.libelle }}</td>
-                    <td> ? inscrit ? </td>
+                    <td> ? inscrit ? </td> {# TODO - doit être loggé #}
                     <td> {{ sortie.organisateur.pseudo }} </td>
                     <td> ? actions ? </td>
                 </tr>
