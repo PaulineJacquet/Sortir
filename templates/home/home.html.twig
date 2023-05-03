@@ -4,34 +4,36 @@
 
 {% block body %}
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Nom de la sortie</th>
-                <th scope="col">Date</th>
-                <th scope="col">Clôture</th>
-                <th scope="col">Places</th>
-                <th scope="col">Etat</th>
-                <th scope="col">Inscrit</th>
-                <th scope="col">Organisateur</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for sortie in sorties %}
+    <div class="tableau_sorties">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>{{ sortie.nom }}</td>
-                    <td>{{ sortie.dateHeureDebut|date('d/m/y - H:i') }}</td>
-                    <td>{{ sortie.dateLimiteInscription|date('d/m/y') }}</td>
-                    <td>{{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</td>
-                    <td>{{ sortie.etat.libelle }}</td>
-                    <td> ? inscrit ? </td> {# TODO - doit être loggé #}
-                    <td> {{ sortie.organisateur.pseudo }} </td>
-                    <td> ? actions ? </td>
+                    <th scope="col">Nom de la sortie</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Clôture</th>
+                    <th scope="col">Places</th>
+                    <th scope="col">Etat</th>
+                    <th scope="col">Inscrit</th>
+                    <th scope="col">Organisateur</th>
+                    <th scope="col">Actions</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for sortie in sorties %}
+                    <tr>
+                        <td>{{ sortie.nom }}</td>
+                        <td>{{ sortie.dateHeureDebut|date('d/m/y - H:i') }}</td>
+                        <td>{{ sortie.dateLimiteInscription|date('d/m/y') }}</td>
+                        <td>{{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</td>
+                        <td>{{ sortie.etat.libelle }}</td>
+                        <td> ? inscrit ? </td> {# TODO - doit être loggé #}
+                        <td> {{ sortie.organisateur.pseudo }} </td>
+                        <td> ? actions ? </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     {% if app.user %}
         <a class="customBTN" href="{{ path('app_sorties') }}">Créer une sortie</a>
