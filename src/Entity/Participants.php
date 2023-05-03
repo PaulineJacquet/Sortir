@@ -39,6 +39,9 @@ class Participants
     #[ORM\Column]
     private ?bool $actif = null;
 
+    #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sorties::class)]
+    private Collection $sorties;
+
     #[ORM\ManyToOne(targetEntity: Sites::class, inversedBy: 'participant')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Sites $site = null;
@@ -49,6 +52,7 @@ class Participants
     public function __construct()
     {
         $this->inscription = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +152,36 @@ class Participants
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sorties>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSortie(Sorties $sortie): self
+    {
+        if (!$this->sorties->contains($sortie)) {
+            $this->sorties->add($sortie);
+            $sortie->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortie(Sorties $sortie): self
+    {
+        if ($this->sorties->removeElement($sortie)) {
+            // set the owning side to null (unless already changed)
+            if ($sortie->getOrganisateur() === $this) {
+                $sortie->setOrganisateur(null);
+            }
+        }
 
         return $this;
     }
