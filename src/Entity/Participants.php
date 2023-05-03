@@ -156,22 +156,22 @@ class Participants
         return $this->sorties;
     }
 
-    public function addsorties(Sorties $sorties): self
+    public function addSortie(Sorties $sortie): self
     {
-        if (!$this->organisateur->contains($sorties)) {
-            $this->organisateur->add($sorties);
-            $sorties->setOrganisateur($this);
+        if (!$this->sorties->contains($sortie)) {
+            $this->sorties->add($sortie);
+            $sortie->setOrganisateur($this);
         }
 
         return $this;
     }
 
-    public function removeSortie(Sorties $sorties): self
+    public function removeSortie(Sorties $sortie): self
     {
-        if ($this->organisateur->removeElement($sorties)) {
+        if ($this->sorties->removeElement($sortie)) {
             // set the owning side to null (unless already changed)
-            if ($sorties->getOrganisateur() === $this) {
-                $sorties->setOrganisateur(null);
+            if ($sortie->getOrganisateur() === $this) {
+                $sortie->setOrganisateur(null);
             }
         }
 

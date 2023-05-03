@@ -52,25 +52,23 @@ class Etats
         return $this->sorties;
     }
 
-    public function addSorty(Sorties $sorty): self
+    public function addSortie(Sorties $sortie): self
     {
-        if (!$this->sorties->contains($sorty)) {
-            $this->sorties->add($sorty);
-            $sorty->setEtat($this);
+        if (!$this->sorties->contains($sortie)) {
+            $this->sorties->add($sortie);
+            $sortie->setEtat($this);
         }
-
         return $this;
     }
 
-    public function removeSorty(Sorties $sorty): self
+    public function removeSortie(Sorties $sortie): self
     {
-        if ($this->sorties->removeElement($sorty)) {
+        if ($this->sorties->removeElement($sortie)) {
             // set the owning side to null (unless already changed)
-            if ($sorty->getEtat() === $this) {
-                $sorty->setEtat(null);
+            if ($sortie->getEtat() === $this) {
+                $sortie->setEtat(null);
             }
         }
-
         return $this;
     }
 }
