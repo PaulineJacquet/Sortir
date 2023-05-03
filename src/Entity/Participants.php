@@ -50,8 +50,8 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Inscriptions::class)]
     private Collection $inscription;
-    #[ORM\Column]
-    private array $roles = [];
+    //#[ORM\Column]
+    //private array $roles = [];
 
     public function __construct()
     {
