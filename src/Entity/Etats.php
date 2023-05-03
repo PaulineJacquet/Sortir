@@ -13,7 +13,7 @@ class Etats
     #[ORM\Column(options:['unsigned'=>true])]
     private ?int $id = null;
 
-    #[ORM\Column(length: 8)]
+    #[ORM\Column(length: 8, unique:true)]
     private ?string $libelle = null;
 
     public function getId(): ?int
