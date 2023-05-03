@@ -15,4 +15,15 @@ class SortiesController extends AbstractController
             'controller_name' => 'SortiesController',
         ]);
     }
+
+    #[Route('/AddSortie', name: 'app_sorties')]
+    public function AddSortie(): Response
+    {
+
+
+
+        return $this->render('sorties/AddSortie.html.twig', [
+            'controller_name' => 'SortiesController',
+        ]);
+    }
 }
