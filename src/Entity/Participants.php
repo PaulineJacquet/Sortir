@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ParticipantsRepository::class)]
@@ -36,6 +38,14 @@ class Participants
 
     #[ORM\Column]
     private ?bool $actif = null;
+
+    #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sorties::class)]
+    private Collection $sorties;
+
+    public function __construct()
+    {
+        $this->sorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -134,6 +144,36 @@ class Participants
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sorties>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addsorties(Sorties $sorties): self
+    {
+        if (!$this->organisateur->contains($sorties)) {
+            $this->organisateur->add($sorties);
+            $sorties->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortie(Sorties $sorties): self
+    {
+        if ($this->organisateur->removeElement($sorties)) {
+            // set the owning side to null (unless already changed)
+            if ($sorties->getOrganisateur() === $this) {
+                $sorties->setOrganisateur(null);
+            }
+        }
 
         return $this;
     }

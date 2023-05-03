@@ -38,6 +38,16 @@ class Sorties
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photoSortie = null;
 
+    #[ORM\ManyToOne(targetEntity: Participants::class,inversedBy: 'sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Participants $organisateur = null;
+
+    #[ORM\ManyToOne(targetEntity:Lieu::class,inversedBy: 'sortie')]
+    private ?Lieu $lieu = null;
+
+    #[ORM\ManyToOne(targetEntity:Etats::class ,inversedBy: 'sorties')]
+    private ?Etats $etat = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +145,42 @@ class Sorties
     public function setPhotoSortie(?string $photoSortie): self
     {
         $this->photoSortie = $photoSortie;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?Participants
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?Participants $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): self
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getEtat(): ?Etats
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?Etats $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }
