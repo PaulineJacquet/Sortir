@@ -15,7 +15,8 @@ class HomeController extends AbstractController
     #[Route('', name:"home", methods: ['GET'])]
     public function home(EntityManagerInterface $entityManager): Response
     {
-        $sorties = $entityManager->getRepository(Sorties::class)->findAll();
+        $repository = $entityManager->getRepository(Sorties::class);
+        $sorties = $entityManager->getRepository(Sorties::class)->findAllByDateHeureDebut();
 
         return $this->render('home/home.html.twig', [
             'sorties' => $sorties,
