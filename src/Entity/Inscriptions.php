@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Inscriptions
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(options:['unsigned'=>true])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
