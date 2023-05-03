@@ -3,6 +3,7 @@
 {% block h1 %}Accueil{% endblock %}
 
 {% block body %}
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -31,6 +32,9 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <a class="customBTN" href="{{ path('app_sorties') }}">Créer une sortie</a>
+
 {% endblock %}
 
 {% block script %}{% endblock %}
