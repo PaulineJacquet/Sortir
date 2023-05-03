@@ -33,7 +33,7 @@ class SortiesController extends AbstractController
     */
 
         $form= $this->createForm(FormTypeSortiesType::class,$sortie);
-       dd($sortie);
+       // dd($sortie);
         $form->handleRequest($request);
 
         /*
