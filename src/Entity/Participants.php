@@ -51,8 +51,8 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Inscriptions::class)]
     private Collection $inscription;
 
-   // #[ORM\Column]
-   // private array $roles = [];
+    //#[ORM\Column]
+    //private array $roles = [];
 
     public function __construct()
     {
@@ -78,6 +78,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->pseudo = $pseudo;
 
+        return $this;
     }
 
     /**
@@ -114,6 +115,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->roles = $roles;
 
+        return $this;
     }
 
     /**
@@ -128,6 +130,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->password = $password;
 
+        return $this;
     }
 
     /**
@@ -158,6 +161,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->nom = $nom;
 
+        return $this;
     }
 
     public function getPrenom(): ?string
@@ -169,6 +173,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->prenom = $prenom;
 
+        return $this;
     }
 
     public function getTelephone(): ?string
@@ -180,6 +185,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->telephone = $telephone;
 
+        return $this;
     }
 
     public function getMail(): ?string
@@ -191,6 +197,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->mail = $mail;
 
+        return $this;
     }
 
     public function isAdministrateur(): ?bool
@@ -202,6 +209,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->administrateur = $administrateur;
 
+        return $this;
     }
 
     public function isActif(): ?bool
@@ -213,6 +221,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->actif = $actif;
 
+        return $this;
     }
 
     /**
@@ -254,6 +263,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->site = $site;
 
+        return $this;
     }
 
     /**
