@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Lieu;
 use App\Entity\Participants;
+use App\Entity\Sites;
 use App\Entity\Sorties;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -28,34 +29,66 @@ class FormTypeSortiesType extends AbstractType
 
         $builder->add('dateHeureDebut',DateType::class,[
             'label'=>'Debut de la sortie ',
-            'required'=>true
+            'required'=>true,
+            'html5' => true,
+           'attr' => ['class' => 'datepicker'],
         ]);
+
         $builder->add('duree',IntegerType::class,[
             'label'=>'Durée de la sortie  '
 
         ]);
+
         $builder->add('dateLimiteInscription',DateType::class,[
             'label'=>'Date limite inscription  ',
-            'required'=>true
+            'required'=>true,
+            'html5' => false,
+            'attr' => ['class' => 'js-datepicker'],
         ]);
+
         $builder->add('nbInscriptionMax',IntegerType::class,[
             'label'=>'Nb de places   ',
             'required'=>true
         ]);
+
         $builder->add('infosSortie',TextareaType::class,[
             'label'=>'Infos sortie   '
         ]);
+
         $builder->add('motifAnnulation',TextareaType::class,[
             'label'=>'motif annulation  '
         ]);
+
         $builder ->add('photoSortie',FileType::class);
+
+
+        $builder ->add('site',EntityType::class , [
+            'label' => 'Ville organisatrice :',
+            'class' => Sites::class,
+            'choice_label'=>'nom',
+            'mapped' =>false,
+            'required'=>true,
+        ]);
+
+
 
         $builder ->add('lieu',EntityType::class,[
             'label' => 'lieu :',
             'class' => Lieu::class,
             'choice_label'=>'nom',
+            'attr' => ['class' => 'form-control'],
             'required'=>true
         ]);
+
+        $builder ->add('lieu',EntityType::class,[
+            'label' => 'lieu :',
+            'class' => Lieu::class,
+            'choice_label'=>'nom',
+            'attr' => ['class' => 'form-control'],
+            'required'=>true
+        ]);
+
+
 
         $builder ->add('organisateur',EntityType::class , [
             'label' => 'Organisateur :',
@@ -63,6 +96,7 @@ class FormTypeSortiesType extends AbstractType
             'choice_label'=>'pseudo',
             'required'=>true
         ]);
+
 
         $builder ->add('ville',EntityType::class , [
             'label' => 'Ville :',
@@ -72,9 +106,6 @@ class FormTypeSortiesType extends AbstractType
             'required'=>true,
         ]);
 
-
-            //->add('etat')
-           // ->add('site')
 
         $builder->add('submit', SubmitType::class, [
             'label' => ('Ajouter la sortie'),
