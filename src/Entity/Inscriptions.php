@@ -21,7 +21,7 @@ class Inscriptions
     #[ORM\JoinColumn(nullable: false)]
     private ?Participants $participant = null;
 
-    #[ORM\ManyToOne(targetEntity: Participants::class, inversedBy: 'inscription')]
+    #[ORM\ManyToOne(targetEntity: Sorties::class, inversedBy: 'inscription')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Sorties $sortie = null;
 

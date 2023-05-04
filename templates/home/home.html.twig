@@ -6,13 +6,13 @@
 
     {{ form_start(filtresForm) }}
 
-    {{ form_row(filtresForm.site) }}
-    {{ form_row(filtresForm.dateDebut) }}
-    {{ form_row(filtresForm.dateFin) }}
-    {{ form_row(filtresForm.organisateur) }}
-    {{ form_row(filtresForm.inscrit) }}
-    {{ form_row(filtresForm.nonInscrit) }}
-    {{ form_row(filtresForm.passees) }}
+        {{ form_row(filtresForm.site) }}
+        {{ form_row(filtresForm.dateDebut) }}
+        {{ form_row(filtresForm.dateFin) }}
+        {{ form_row(filtresForm.organisateur) }}
+        {{ form_row(filtresForm.inscrit) }}
+        {{ form_row(filtresForm.nonInscrit) }}
+        {{ form_row(filtresForm.passees) }}
 
     {{ form_end(filtresForm) }}
 
@@ -34,7 +34,7 @@
                 {% for sortie in sorties %}
                     <tr>
                         <td>{{ sortie.nom }}</td>
-                        <td>{{ sortie.dateHeureDebut|date('d/m/y - H:i') }}</td>
+                        <td>{{ sortie.dateHeureDebut|date('d/m/y H:i') }}</td>
                         <td>{{ sortie.dateLimiteInscription|date('d/m/y') }}</td>
                         <td>{{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</td>
                         <td>{{ sortie.etat.libelle }}</td>
