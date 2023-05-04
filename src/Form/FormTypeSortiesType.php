@@ -25,11 +25,10 @@ class FormTypeSortiesType extends AbstractType
             ->add('infosSortie')
             ->add('motifAnnulation')
             ->add('photoSortie')
-
+            /*
             ->add('lieu',EntityType::class,[
                 'label' => 'lieu :',
-                'class' => Lieu::class,
-                'mapped' =>false,
+                'class' => 'App\Entity\Lieu',
                 'required'=> false,
                 'placeholder' => 'Veuillez choisir un lieu',
                 'attr' => ['class' => 'form-control'],
