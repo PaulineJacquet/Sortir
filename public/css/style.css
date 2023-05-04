@@ -49,8 +49,8 @@ td, th {
 
 /********** HEADER - Brand / Logo / Nom **********/
 header {
-   background-image: linear-gradient(to right, rgb(88, 28, 135), rgb(217, 70, 239), rgb(251, 146, 60));
-   box-shadow: rgba(50, 50, 93, 0.25) 0 -2px 5px 1px, rgba(0, 0, 0, 0.3) 0 -1px 10px 1px;
+    background-image: linear-gradient(to right, rgb(88, 28, 135), rgb(217, 70, 239), rgb(251, 146, 60));
+    box-shadow: rgba(50, 50, 93, 0.25) 0 -2px 5px 1px, rgba(0, 0, 0, 0.3) 0 -1px 10px 1px;
 }
 
 .nightowl_logo {
@@ -60,10 +60,6 @@ header {
 .brand {
     display: flex;
     align-items: center;
-}
-
-.brand_logo {
-    margin-left: 20px;
 }
 
 .brand_name > a {
