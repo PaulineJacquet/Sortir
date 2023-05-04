@@ -29,6 +29,8 @@ class SortiesController extends AbstractController
         $sortie= new Sorties();
 
         $organisateurs= $this->getUser();
+        $lieu =$entityManager->getRepository(Lieu::class)->findAll();
+
         $sortie->setOrganisateur($organisateurs);
 
        //dd($sortie);

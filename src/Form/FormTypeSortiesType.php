@@ -72,6 +72,7 @@ class FormTypeSortiesType extends AbstractType
             'choice_label'=>'nom',
             'mapped' =>false,
             'required'=>true,
+            'disabled' =>true,
         ]);
 
 
