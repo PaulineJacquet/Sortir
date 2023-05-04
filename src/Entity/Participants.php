@@ -6,10 +6,12 @@ use App\Repository\ParticipantsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ParticipantsRepository::class)]
+#[UniqueEntity(fields: ['pseudo'], message: 'There is already an account with this pseudo')]
 class Participants implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -50,6 +52,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Inscriptions::class)]
     private Collection $inscription;
+
     //#[ORM\Column]
     //private array $roles = [];
 
