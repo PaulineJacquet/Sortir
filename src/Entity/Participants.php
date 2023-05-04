@@ -34,7 +34,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 20, unique:true)]
     private ?string $mail = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 100)]
     private ?string $password = null;
 
     #[ORM\Column]
@@ -53,8 +53,8 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Inscriptions::class)]
     private Collection $inscription;
 
-    //#[ORM\Column]
-    //private array $roles = [];
+    // #[ORM\Column]
+    // private array $roles = [];
 
     public function __construct()
     {
@@ -106,11 +106,12 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        //$roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        //$roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
+        //return array_unique($roles);
+        return ['ROLE_USER'];
     }
 
     public function setRoles(array $roles): self
