@@ -17,22 +17,36 @@
             {{ form_row(formSortie.duree) }}
             {{ form_row(formSortie.infosSortie) }}
 
-
-
         </div>
         <!--à droite-->
         <div class="col">
-            {{ form_row(formSortie.site) }}
+            <div>
+                <label>Ville Organisatrice</label>
+                <input type="text" id="rue" required="required" class="form-control" disabled value="{{ sortie.site.nom }}">
+            </div>
 
             {{ form_row(formSortie.ville) }}
 
             {{ form_row(formSortie.lieu) }}
+            <div>
+                <label>Rue</label>
+                <input type="text" id="rue" required="required" class="form-control" disabled>
+            </div>
+            <div>
+                <label>Code postal</label>
+                <input type="text" id="rue" required="required" class="form-control" disabled>
+            </div>
+            <div>
+                <label>Latitude</label>
+                <input type="text" id="rue" required="required" class="form-control">
+            </div>
+            <div>
+                <label>Longitude</label>
+                <input type="text" id="rue" required="required" class="form-control">
+            </div>
 
             {{ form_row(formSortie.organisateur) }}
-
-
         </div>
-
         {{ form_row(formSortie.submit) }}
     </div>
 

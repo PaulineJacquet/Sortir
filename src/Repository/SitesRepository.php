@@ -39,6 +39,15 @@ class SitesRepository extends ServiceEntityRepository
         }
     }
 
+    public function getSiteByParticpant(int $id){
+        $query = $this->createQueryBuilder('site')
+            ->innerJoin('site.participant','participant')
+            ->Where('site.id =:id')->setParameter('id',$id);
+
+        return $query->getQuery()->getSingleResult();
+    }
+
+
 //    /**
 //     * @return Sites[] Returns an array of Sites objects
 //     */

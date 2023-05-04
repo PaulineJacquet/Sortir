@@ -66,15 +66,6 @@ class FormTypeSortiesType extends AbstractType
         $builder ->add('photoSortie',FileType::class);
 
 
-        $builder ->add('site',EntityType::class , [
-            'label' => 'Ville organisatrice :',
-            'class' => Sites::class,
-            'choice_label'=>'nom',
-            'mapped' =>false,
-            'required'=>true,
-            'disabled' =>true,
-        ]);
-
 
         $builder ->add('lieu',EntityType::class,[
             'label' => 'lieu :',
@@ -83,12 +74,6 @@ class FormTypeSortiesType extends AbstractType
             'attr' => ['class' => 'form-control'],
             'required'=>true
         ]);
-        /*
-        $builder ->add('organisateur',EntityType::class , [
-            'label' => 'Organisateur :',
-            'class'=>Participants::class
-        ]);
-        */
 
         $builder ->add('organisateur',EntityType::class , [
             'label' => 'Organisateur :',

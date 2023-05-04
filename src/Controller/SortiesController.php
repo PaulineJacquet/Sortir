@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Lieu;
 use App\Entity\Participants;
+use App\Entity\Sites;
 use App\Entity\Sorties;
 use App\Entity\Ville;
 use App\Form\FormTypeSortiesType;
@@ -29,9 +30,13 @@ class SortiesController extends AbstractController
         $sortie= new Sorties();
 
         $organisateurs= $this->getUser();
-        $lieu =$entityManager->getRepository(Lieu::class)->findAll();
+        $site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateurs->getId());
+
+      //  dd($site);
+
 
         $sortie->setOrganisateur($organisateurs);
+        $sortie->setSite($site);
 
        //dd($sortie);
 
@@ -57,6 +62,7 @@ class SortiesController extends AbstractController
         }
 
         return $this->render('sorties/AddSortie.html.twig', [
+            'sortie'=> $sortie,
             'formSortie' => $form->createView(),
 
         ]);
