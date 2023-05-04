@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block h1 %}Accueil{% endblock %}
+{% block h1 %}Liste des sorties{% endblock %}
 
 {% block body %}
 
@@ -44,7 +44,9 @@
                             {% endif %}
                         </td>
                         <td> {{ sortie.organisateur.pseudo }} </td>
-                        <td> ? actions ? </td>
+                        <td>
+                            <a href="{{ path('app_details', {'id': sortie.id}) }}">Afficher</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

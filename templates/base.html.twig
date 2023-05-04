@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -23,7 +23,7 @@
             <div class="brand">
                 <div class="brand_logo">
                     <a href="{{ path('app_home') }}">
-                        <img src="assets/img/nightowl_logo.svg" alt="Logo NightOwl" class="nightowl_logo">
+                        <img src="{{ asset('assets/img/nightowl_logo.svg') }}" alt="Logo NightOwl" class="nightowl_logo">
                     </a>
                 </div>
                 <div class="brand_name">

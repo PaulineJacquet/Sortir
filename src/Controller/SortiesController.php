@@ -8,6 +8,7 @@ use App\Entity\Sorties;
 use App\Entity\Ville;
 use App\Form\FormTypeSortiesType;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\ORMException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,4 +65,15 @@ class SortiesController extends AbstractController
 
         ]);
     }
+
+    #[Route('/sortie/{id}', name: 'app_details', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function details(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $sortie = $entityManager->getRepository(Sorties::class)->findOneBy(['id' => $id]);
+
+        return $this->render('sorties/details.html.twig', [
+            'sortie'=> $sortie,
+        ]);
+    }
+
 }
