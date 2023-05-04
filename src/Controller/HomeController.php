@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Sorties;
+use App\Form\SortiesFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,14 +14,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
 
-    #[Route('', name:"home", methods: ['GET'])]
-    public function home(EntityManagerInterface $entityManager): Response
+    #[Route('', name:"home", methods: ['GET', 'POST'])]
+    public function home(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $repository = $entityManager->getRepository(Sorties::class);
-        $sorties = $entityManager->getRepository(Sorties::class)->findAllByDateHeureDebut();
+        $sortiesRepository = $entityManager->getRepository(Sorties::class);
+        $sorties = $sortiesRepository->findAllByDateHeureDebut();
+
+        $filtresForm = $this->createForm(SortiesFilterType::class);
+        $filtresForm->handleRequest($request);
+
+        if ($filtresForm->isSubmitted() && $filtresForm->isValid()) {
+            $filtres = $filtresForm->getData();
+            $sorties = $sortiesRepository->findByFiltres($filtres);
+        }
 
         return $this->render('home/home.html.twig', [
             'sorties' => $sorties,
+            'filtresForm' => $filtresForm->createView(),
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Sorties;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -48,6 +49,48 @@ class SortiesRepository extends ServiceEntityRepository
             ->orderBy('sorties.dateHeureDebut', 'ASC')
             ->getQuery()
             ->getResult();
+    }
+
+    public function findByFiltres($filtres)
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->orderBy('s.dateHeureDebut', 'ASC');
+
+        if (!empty($filtres['site'])) {
+            $qb->andWhere('s.site = :site')
+                ->setParameter('site', $filtres['site']);
+        }
+
+        if (!empty($filtres['dateDebut']) && !empty($filtres['dateFin'])) {
+            $qb->andWhere('s.dateHeureDebut BETWEEN :dateDebut AND :dateFin')
+                ->setParameter('dateDebut', $filtres['dateDebut'])
+                ->setParameter('dateFin', $filtres['dateFin']);
+        }
+
+        if (!empty($filtres['organisateur'])) {
+            $qb->andWhere('s.organisateur = :organisateur')
+                ->setParameter('organisateur', $this->getUser());
+        }
+
+        if (!empty($filtres['inscrit'])) {
+            $qb->innerJoin('s.inscription', 'i')
+                ->andWhere('i.participant = :participant')
+                ->setParameter('participant', $this->getUser());
+        }
+
+        if (!empty($filtres['nonInscrit'])) {
+            $qb->leftJoin('s.inscription', 'i', Join::WITH, 'i.participant = :participant')
+                ->andWhere('i.id IS NULL')
+                ->setParameter('participant', $this->getUser());
+        }
+
+        if (!empty($filtres['passees'])) {
+            $qb->andWhere('s.dateHeureDebut < :now')
+                ->setParameter('now', new \DateTime());
+        }
+
+        return $qb->getQuery()->getResult();
+
     }
 
 //    /**

@@ -3,7 +3,7 @@
 {% block h1 %}AddSortie{% endblock %}
 
 {% block body %}
-
+    {% form_theme formSortie 'bootstrap_5_layout.html.twig' %}
     {{ form_start(formSortie) }}
 
     <div class="row">
@@ -16,18 +16,32 @@
             {{ form_row(formSortie.nbInscriptionMax) }}</br>
             {{ form_row(formSortie.duree) }}</br>
             {{ form_row(formSortie.infosSortie) }} </br>
-            {#{{ form_row(formSortie.lieu.nom) }} #}
+
 
 
         </div>
         <!--à droite-->
         <div class="col">
+            {{ form_row(formSortie.site) }}
 
-             {{ form_widget(formSortie) }}
+            {{ form_row(formSortie.ville) }}
+
+           {#{{ form_row(formSortie.lieu) }} #}
+
+            {{ form_row(formSortie.lieu) }}
+
+
+            {{ sortie.lieu.rue }}
+
+
+
+
+
+            {{ form_row(formSortie.organisateur) }}
 
         </div>
 
-
+        {{ form_row(formSortie.submit) }}
     </div>
 
 

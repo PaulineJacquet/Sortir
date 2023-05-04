@@ -27,25 +27,24 @@ class SortiesController extends AbstractController
     public function AddSortie(Request $request,EntityManagerInterface $entityManager): Response
     {
         $sortie= new Sorties();
+        //$lieu = new Lieu();
         $organisateurs= $entityManager->getRepository(Participants::class)->findAll();
-
-        //$ville= $entityManager->getRepository(Ville::class)->findAll();
         $lieu=$entityManager->getRepository(Lieu::class)->findAll();
 
         $sortie->setOrganisateur($organisateurs[0]);
-       // $sortie->setLieu($lieu[0]);
+        $sortie->setLieu($lieu[0]);
 
-       // dd($sortie);
+
+      // dd($sortie);
 
 
         $form= $this->createForm(FormTypeSortiesType::class,$sortie);
-
         $form->handleRequest($request);
 
-        /*
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager->persist($wish);
+            $entityManager->persist($sortie);
 
             // Validation de la transaction
             $entityManager->flush();
@@ -58,9 +57,11 @@ class SortiesController extends AbstractController
 
             ]);
         }
-        */
+
         return $this->render('sorties/AddSortie.html.twig', [
+            'sortie'=> $sortie,
             'formSortie' => $form->createView(),
+
         ]);
     }
 }
