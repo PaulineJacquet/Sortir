@@ -40,7 +40,7 @@ class Sorties
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photoSortie = null;
 
-    #[ORM\ManyToOne(targetEntity: Participants::class,inversedBy: 'sorties')]
+    #[ORM\ManyToOne(targetEntity: Participants::class, fetch: 'EAGER', inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Participants $organisateur = null;
 

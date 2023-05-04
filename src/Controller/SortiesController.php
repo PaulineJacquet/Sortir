@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortiesController extends AbstractController
 {
-    #[Route('/sorties', name: 'app_sorties')]
+    #[Route('/sorties', name: 'app_')]
     public function index(): Response
     {
         return $this->render('sorties/index.html.twig', [
@@ -27,15 +27,11 @@ class SortiesController extends AbstractController
     public function AddSortie(Request $request,EntityManagerInterface $entityManager): Response
     {
         $sortie= new Sorties();
-        //$lieu = new Lieu();
-        $organisateurs= $entityManager->getRepository(Participants::class)->findAll();
-        $lieu=$entityManager->getRepository(Lieu::class)->findAll();
 
-        $sortie->setOrganisateur($organisateurs[0]);
-        $sortie->setLieu($lieu[0]);
+        $organisateurs= $this->getUser();
+        $sortie->setOrganisateur($organisateurs);
 
-
-      // dd($sortie);
+       //dd($sortie);
 
 
         $form= $this->createForm(FormTypeSortiesType::class,$sortie);
@@ -59,7 +55,6 @@ class SortiesController extends AbstractController
         }
 
         return $this->render('sorties/AddSortie.html.twig', [
-            'sortie'=> $sortie,
             'formSortie' => $form->createView(),
 
         ]);

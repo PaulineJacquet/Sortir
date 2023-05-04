@@ -9,6 +9,7 @@ use App\Entity\Sorties;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -27,10 +28,12 @@ class FormTypeSortiesType extends AbstractType
             'required'=>true
         ]);
 
-        $builder->add('dateHeureDebut',DateType::class,[
+        $builder->add('dateHeureDebut',DateTimeType::class,[
             'label'=>'Debut de la sortie ',
             'required'=>true,
             'html5' => true,
+            'html5' => true,
+            'widget' => 'single_text',
            'attr' => ['class' => 'datepicker'],
         ]);
 
@@ -39,10 +42,11 @@ class FormTypeSortiesType extends AbstractType
 
         ]);
 
-        $builder->add('dateLimiteInscription',DateType::class,[
+        $builder->add('dateLimiteInscription',DateTimeType::class,[
             'label'=>'Date limite inscription  ',
             'required'=>true,
-            'html5' => false,
+            'html5' => true,
+            'widget' => 'single_text',
             'attr' => ['class' => 'js-datepicker'],
         ]);
 
@@ -71,7 +75,6 @@ class FormTypeSortiesType extends AbstractType
         ]);
 
 
-
         $builder ->add('lieu',EntityType::class,[
             'label' => 'lieu :',
             'class' => Lieu::class,
@@ -79,16 +82,12 @@ class FormTypeSortiesType extends AbstractType
             'attr' => ['class' => 'form-control'],
             'required'=>true
         ]);
-
-        $builder ->add('lieu',EntityType::class,[
-            'label' => 'lieu :',
-            'class' => Lieu::class,
-            'choice_label'=>'nom',
-            'attr' => ['class' => 'form-control'],
-            'required'=>true
+        /*
+        $builder ->add('organisateur',EntityType::class , [
+            'label' => 'Organisateur :',
+            'class'=>Participants::class
         ]);
-
-
+        */
 
         $builder ->add('organisateur',EntityType::class , [
             'label' => 'Organisateur :',
