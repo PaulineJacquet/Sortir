@@ -18,7 +18,7 @@ class SortiesController extends AbstractController
     #[Route('/sorties', name: 'app_sorties')]
     public function index(): Response
     {
-        return $this->render('sorties/index.html.twig', [
+        return $this->render('sorties/MonProfil.html.twig', [
             'controller_name' => 'SortiesController',
         ]);
     }
