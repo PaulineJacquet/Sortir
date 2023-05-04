@@ -89,8 +89,8 @@ class SortiesRepository extends ServiceEntityRepository
                 ->setParameter('participant', $this->security->getUser());
         }
 
-        if (!empty($filtres['passees'])) {
-            $qb->andWhere('s.dateHeureDebut < :now')
+        if (empty($filtres['passees'])) {
+            $qb->andWhere('s.dateHeureDebut >= :now')
                 ->setParameter('now', new \DateTime());
         }
 
