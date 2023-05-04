@@ -17,7 +17,7 @@ class Etats
 
 
     #[ORM\Column(length: 8)]
-    private ?string $libelle = null;
+    private ?string $libelle = 'Créee';
 
     #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Sorties::class)]
     private Collection $sorties;
@@ -25,7 +25,7 @@ class Etats
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
-        $libelle="Créééé";
+
     }
 
     public function getId(): ?int

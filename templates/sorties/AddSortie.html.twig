@@ -24,8 +24,22 @@
                 <label>Ville Organisatrice</label>
                 <input type="text" id="rue" required="required" class="form-control" disabled value="{{ sortie.site.nom }}">
             </div>
+            {#
+                {{ form_row(formSortie.ville, {
+                   'attr': {
+                       'data-update-url': path('update_cp'),
+                   }
+                 }) }}
+            #}
+            {{ form_row(formSortie.ville, {
+                'attr': {
+                    'onchange': 'alert(this.value)',
+                }
+            }) }}
 
-            {{ form_row(formSortie.ville) }}
+            <script>
+
+            </script>
 
             {{ form_row(formSortie.lieu) }}
             <div>
@@ -38,11 +52,11 @@
             </div>
             <div>
                 <label>Latitude</label>
-                <input type="text" id="rue" required="required" class="form-control">
+                <input type="text" id="rue" class="form-control">
             </div>
             <div>
                 <label>Longitude</label>
-                <input type="text" id="rue" required="required" class="form-control">
+                <input type="text" id="rue"  class="form-control">
             </div>
 
             {{ form_row(formSortie.organisateur) }}
@@ -50,10 +64,7 @@
         {{ form_row(formSortie.submit) }}
     </div>
 
-
-
-{#  {{   form(formSortie) }} #}
-
+    {{ form_end(formSortie) }}
 
 {% endblock %}
 

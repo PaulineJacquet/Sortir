@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Lieu;
-use App\Entity\Participants;
+
 use App\Entity\Sites;
 use App\Entity\Sorties;
 use App\Entity\Ville;
@@ -13,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class SortiesController extends AbstractController
 {
@@ -32,14 +33,8 @@ class SortiesController extends AbstractController
         $organisateurs= $this->getUser();
         $site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateurs->getId());
 
-      //  dd($site);
-
-
         $sortie->setOrganisateur($organisateurs);
         $sortie->setSite($site);
-
-       //dd($sortie);
-
 
         $form= $this->createForm(FormTypeSortiesType::class,$sortie);
         $form->handleRequest($request);
@@ -56,7 +51,7 @@ class SortiesController extends AbstractController
             $this->addFlash('success', 'Votre Sortie a été ajoutée avec succés !');
 
             // Redirection sur la page de détails
-            return $this->redirectToRoute('home', [
+            return $this->redirectToRoute('app_home', [
 
             ]);
         }
@@ -67,4 +62,20 @@ class SortiesController extends AbstractController
 
         ]);
     }
+
+    #[Route('/update_cp', name: 'update_cp', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function updateCP(Request $request,int $id, EntityManagerInterface $entityManager)
+    {
+        $ville=$entityManager->getRepository(Ville::class)->findOneBy(['id'=>$id]);
+        $cp=$ville->getCodePostal();
+
+        // Récupérez la liste des villes pour le pays sélectionné
+        // ...dd
+        dd($cp);
+        // Convertissez la liste des villes en format JSON et renvoyez-la
+        return new JsonResponse($cp);
+    }
+
+
+
 }

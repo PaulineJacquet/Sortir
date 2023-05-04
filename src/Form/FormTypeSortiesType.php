@@ -59,13 +59,14 @@ class FormTypeSortiesType extends AbstractType
             'label'=>'Infos sortie   '
         ]);
 
+        /*
         $builder->add('motifAnnulation',TextareaType::class,[
             'label'=>'motif annulation  '
         ]);
 
         $builder ->add('photoSortie',FileType::class);
 
-
+        */
 
         $builder ->add('lieu',EntityType::class,[
             'label' => 'lieu :',

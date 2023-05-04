@@ -1,3 +1,8 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+update_data:
+  path: /update_cp
+  methods: [POST],[GET]
+  controller: App\Controller\SortiesController::update_cp
