@@ -40,6 +40,17 @@ class SortiesRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Sorties[]
+     */
+    public function findAllByDateHeureDebut(): array
+    {
+        return $this->createQueryBuilder('sorties')
+            ->orderBy('sorties.dateHeureDebut', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findByFiltres($filtres)
     {
         $qb = $this->createQueryBuilder('s')

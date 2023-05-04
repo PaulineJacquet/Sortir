@@ -18,6 +18,7 @@ class HomeController extends AbstractController
     public function home(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sortiesRepository = $entityManager->getRepository(Sorties::class);
+        $sorties = $sortiesRepository->findAllByDateHeureDebut();
 
         $filtresForm = $this->createForm(SortiesFilterType::class);
         $filtresForm->handleRequest($request);
