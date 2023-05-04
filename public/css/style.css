@@ -37,13 +37,18 @@
 }
 
 
-/********** Couleur de la section Copyright du footer **********/
-.copyright {
-    background-color: #2d2d2d;
+/********** Aligne le texte dans le tableau (liste des sorties) **********/
+.tableau_sorties {
+    text-align: center;
 }
 
 
 /********** HEADER - Brand / Logo / Nom **********/
+header {
+   background-image: linear-gradient(to right, rgb(88, 28, 135), rgb(217, 70, 239), rgb(251, 146, 60));
+   box-shadow: rgba(50, 50, 93, 0.25) 0 -2px 5px 1px, rgba(0, 0, 0, 0.3) 0 -1px 10px 1px;
+}
+
 .nightowl_logo {
     width: 65px;
 }
@@ -65,21 +70,12 @@
 }
 
 
-/********** Aligne le texte dans le tableau (liste des sorties) **********/
-.tableau_sorties {
-    text-align: center;
-}
-
-
-/********** HEADER **********/
-header {
-    background-image: linear-gradient(to right, rgb(88, 28, 135), rgb(217, 70, 239), rgb(251, 146, 60));
-    box-shadow: rgba(50, 50, 93, 0.25) 0 -2px 5px 1px, rgba(0, 0, 0, 0.3) 0 -1px 10px 1px;
-}
-
-
 /********** FOOTER **********/
 footer {
     background-color: #505050;
     box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px 1px, rgba(0, 0, 0, 0.3) 0 1px 10px 1px;
+}
+
+.copyright {
+    background-color: #2d2d2d;
 }

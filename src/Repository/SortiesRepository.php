@@ -6,6 +6,8 @@ use App\Entity\Sorties;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
+
 
 /**
  * @extends ServiceEntityRepository<Sorties>
@@ -17,9 +19,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SortiesRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $security;
+
+    public function __construct(ManagerRegistry $registry, Security $security)
     {
         parent::__construct($registry, Sorties::class);
+        $this->security = $security;
     }
 
     public function save(Sorties $entity, bool $flush = false): void
@@ -69,19 +74,19 @@ class SortiesRepository extends ServiceEntityRepository
 
         if (!empty($filtres['organisateur'])) {
             $qb->andWhere('s.organisateur = :organisateur')
-                ->setParameter('organisateur', $this->getUser());
+                ->setParameter('organisateur', $this->security->getUser());
         }
 
         if (!empty($filtres['inscrit'])) {
             $qb->innerJoin('s.inscription', 'i')
                 ->andWhere('i.participant = :participant')
-                ->setParameter('participant', $this->getUser());
+                ->setParameter('participant', $this->security->getUser());
         }
 
         if (!empty($filtres['nonInscrit'])) {
             $qb->leftJoin('s.inscription', 'i', Join::WITH, 'i.participant = :participant')
                 ->andWhere('i.id IS NULL')
-                ->setParameter('participant', $this->getUser());
+                ->setParameter('participant', $this->security->getUser());
         }
 
         if (!empty($filtres['passees'])) {
@@ -90,7 +95,6 @@ class SortiesRepository extends ServiceEntityRepository
         }
 
         return $qb->getQuery()->getResult();
-
     }
 
 //    /**
