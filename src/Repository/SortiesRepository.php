@@ -51,6 +51,8 @@ class SortiesRepository extends ServiceEntityRepository
     public function findAllByDateHeureDebut(): array
     {
         return $this->createQueryBuilder('sorties')
+            ->where('sorties.dateHeureDebut > :now')
+            ->setParameter('now', new \DateTime())
             ->orderBy('sorties.dateHeureDebut', 'ASC')
             ->getQuery()
             ->getResult();
@@ -89,8 +91,8 @@ class SortiesRepository extends ServiceEntityRepository
                 ->setParameter('participant', $this->security->getUser());
         }
 
-        if (!empty($filtres['passees'])) {
-            $qb->andWhere('s.dateHeureDebut < :now')
+        if (empty($filtres['passees'])) {
+            $qb->andWhere('s.dateHeureDebut >= :now')
                 ->setParameter('now', new \DateTime());
         }
 

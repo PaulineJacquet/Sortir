@@ -12,7 +12,7 @@
         {{ form_row(filtresForm.organisateur) }}
         {{ form_row(filtresForm.inscrit) }}
         {{ form_row(filtresForm.nonInscrit) }}
-        {{ form_row(filtresForm.passees) }}
+        {{ form_row(filtresForm.passees, {'label': 'Sorties passées', 'attr': {'checked': false}}) }}
 
     {{ form_end(filtresForm) }}
 
@@ -38,7 +38,11 @@
                         <td>{{ sortie.dateLimiteInscription|date('d/m/y') }}</td>
                         <td>{{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</td>
                         <td>{{ sortie.etat.libelle }}</td>
-                        <td> ? inscrit ? </td> {# TODO - doit être loggé #}
+                        <td>
+                            {% if app.user and sortie.inscription.contains(app.user) %}
+                                Oui
+                            {% endif %}
+                        </td>
                         <td> {{ sortie.organisateur.pseudo }} </td>
                         <td> ? actions ? </td>
                     </tr>
