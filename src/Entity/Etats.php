@@ -25,6 +25,7 @@ class Etats
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
+        $libelle="Créééé";
     }
 
     public function getId(): ?int
