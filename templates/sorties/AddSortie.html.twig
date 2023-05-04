@@ -10,20 +10,21 @@
         <!--a gauche-->
         <div class="col">
 
-            {{ form_row(formSortie.nom) }}
-            {{ form_row(formSortie.dateHeureDebut) }}
-            {{ form_row(formSortie.dateLimiteInscription) }}
-            {{ form_row(formSortie.nbInscriptionMax) }}
-            {{ form_row(formSortie.duree) }}
-            {{ form_row(formSortie.infosSortie) }}
+            {{ form_row(formSortie.nom) }}</br>
+            {{ form_row(formSortie.dateHeureDebut) }} </br>
+            {{ form_row(formSortie.dateLimiteInscription) }}</br>
+            {{ form_row(formSortie.nbInscriptionMax) }}</br>
+            {{ form_row(formSortie.duree) }}</br>
+            {{ form_row(formSortie.infosSortie) }} </br>
             {#{{ form_row(formSortie.lieu.nom) }} #}
 
 
         </div>
         <!--à droite-->
         <div class="col">
-            <labe>le reste</labe>
-            {{ form_widget(formSortie) }}
+
+             {{ form_widget(formSortie) }}
+
         </div>
 
 

@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Participants;
 use App\Entity\Sorties;
+use App\Entity\Ville;
 use App\Form\FormTypeSortiesType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,15 +27,19 @@ class SortiesController extends AbstractController
     public function AddSortie(Request $request,EntityManagerInterface $entityManager): Response
     {
         $sortie= new Sorties();
-    /*
-        $organisateur=new Participants();
-        $organisateur->setNom('test');
-        $organisateur->setPrenom('test');
-        $sortie->setOrganisateur($organisateur);
-    */
+        $organisateurs= $entityManager->getRepository(Participants::class)->findAll();
+
+        //$ville= $entityManager->getRepository(Ville::class)->findAll();
+        $lieu=$entityManager->getRepository(Lieu::class)->findAll();
+
+        $sortie->setOrganisateur($organisateurs[0]);
+       // $sortie->setLieu($lieu[0]);
+
+       // dd($sortie);
+
 
         $form= $this->createForm(FormTypeSortiesType::class,$sortie);
-       // dd($sortie);
+
         $form->handleRequest($request);
 
         /*
