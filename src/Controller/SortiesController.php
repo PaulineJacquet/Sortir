@@ -4,6 +4,8 @@ namespace App\Controller;
 
 
 use App\Entity\Etats;
+use App\Entity\Lieu;
+use App\Entity\Participants;
 use App\Entity\Sites;
 use App\Entity\Sorties;
 use App\Entity\Ville;
