@@ -5,16 +5,16 @@ namespace App\Controller;
 use App\Entity\Sorties;
 use App\Form\SortiesFilterType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+#[IsGranted('ROLE_USER')]
 #[Route(name:'app_')]
 class HomeController extends AbstractController
 {
-
-    #[Route('', name:"home", methods: ['GET', 'POST'])]
+    #[Route('home', name:"home", methods: ['GET', 'POST'])]
     public function home(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sortiesRepository = $entityManager->getRepository(Sorties::class);
