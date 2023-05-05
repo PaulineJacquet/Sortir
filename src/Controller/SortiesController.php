@@ -4,12 +4,15 @@ namespace App\Controller;
 
 
 use App\Entity\Etats;
+use App\Entity\Lieu;
+use App\Entity\Participants;
 use App\Entity\Sites;
 use App\Entity\Sorties;
 use App\Entity\Ville;
 use App\Form\FormTypeSortiesType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
+#[IsGranted('ROLE_USER')]
 class SortiesController extends AbstractController
 {
     #[Route('/sorties', name: 'app_sorties')]
@@ -26,11 +30,17 @@ class SortiesController extends AbstractController
             'controller_name' => 'SortiesController',
         ]);
     }
-    #[IsGranted('ROLE_USER')]
+
     #[Route('/AddSortie', name: 'app_sorties')]
     public function AddSortie(Request $request,EntityManagerInterface $entityManager): Response
     {
         $sortie= new Sorties();
+        //$lieu = new Lieu();
+        $organisateurs= $entityManager->getRepository(Participants::class)->findAll();
+        $lieu=$entityManager->getRepository(Lieu::class)->findAll();
+
+        $sortie->setOrganisateur($organisateurs[0]);
+        $sortie->setLieu($lieu[0]);
 
         $organisateurs= $this->getUser();
         $site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateurs->getId());

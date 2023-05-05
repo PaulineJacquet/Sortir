@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+#[UniqueEntity(fields: ['mail'], message: 'Un compte avec cette email existe déjà !')]
+#[UniqueEntity(fields: ['pseudo'], message: 'Un compte avec ce pseudo existe déjà !')]
 #[ORM\Entity(repositoryClass: ParticipantsRepository::class)]
 class Participants implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -107,6 +108,9 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         //$roles = $this->roles;
         // guarantee every user at least has ROLE_USER
+        if ($administrateur = 1) {
+            $roles[] = 'ROLE_ADMIN';
+        }
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
