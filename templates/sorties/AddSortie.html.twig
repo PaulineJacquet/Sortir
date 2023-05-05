@@ -3,6 +3,8 @@
 {% block h1 %}AddSortie{% endblock %}
 
 {% block body %}
+
+
     {% form_theme formSortie 'bootstrap_5_layout.html.twig' %}
     {{ form_start(formSortie) }}
 
@@ -24,39 +26,26 @@
                 <label>Ville Organisatrice</label>
                 <input type="text" id="rue" required="required" class="form-control" disabled value="{{ sortie.site.nom }}">
             </div>
-            {#
-                {{ form_row(formSortie.ville, {
-                   'attr': {
-                       'data-update-url': path('update_cp'),
-                   }
-                 }) }}
-            #}
-            {{ form_row(formSortie.ville, {
-                'attr': {
-                    'onchange': 'alert(this.value)',
-                }
-            }) }}
 
-            <script>
-
-            </script>
+            {{ form_row(formSortie.ville) }}
 
             {{ form_row(formSortie.lieu) }}
+
             <div>
                 <label>Rue</label>
-                <input type="text" id="rue" required="required" class="form-control" disabled>
+                <input type="text" id="rue" required="required" class="form-control">
             </div>
             <div>
                 <label>Code postal</label>
-                <input type="text" id="rue" required="required" class="form-control" disabled>
+                <input type="text" id="CodePostal" required="required" class="form-control" value="85" disabled>
             </div>
             <div>
                 <label>Latitude</label>
-                <input type="text" id="rue" class="form-control">
+                <input type="text" id="latitude" class="form-control">
             </div>
             <div>
                 <label>Longitude</label>
-                <input type="text" id="rue"  class="form-control">
+                <input type="text" id="longitude"  class="form-control">
             </div>
 
             {{ form_row(formSortie.organisateur) }}
@@ -68,4 +57,32 @@
 
 {% endblock %}
 
-{% block script %}{% endblock %}
+{% block script %}
+    <script>
+        /* sur changement de la données dans la liste deroulante de ville ...*/
+        $(document).on('change', '#form_type_sorties_ville', function () {
+            /* chargement des lieux de la ville concernée */
+           // alert('test');
+          chargerCodePostal();
+        })
+
+        /* fonction permettant de recuperer le code postal en fonction de la ville selectionnée */
+        function chargerCodePostal(){
+            jQuery.ajax({
+                method: "GET",
+                url: "/sortir/public/ajax/rechercheCodePostal", /* appel de la fonction rechercheLieuByVille du controlleur AjaxController*/
+                data: {
+                    'ville_id' : $('#form_type_sorties_ville').val() //recupération de la ville dans la data
+                }
+            }).done(function (response) {
+               // alert('test');
+                $('#CodePostal').html(''); //initialisation de la liste des lieux
+
+                $('#CodePostal').val(response);
+            })
+        }
+    </script>
+
+
+
+{% endblock %}

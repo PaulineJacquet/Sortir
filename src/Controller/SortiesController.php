@@ -31,15 +31,14 @@ class SortiesController extends AbstractController
     public function AddSortie(Request $request,EntityManagerInterface $entityManager): Response
     {
         $sortie= new Sorties();
-        //$lieu = new Lieu();
-        $organisateurs= $entityManager->getRepository(Participants::class)->findAll();
-        $lieu=$entityManager->getRepository(Lieu::class)->findAll();
 
         $organisateurs= $this->getUser();
         $site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateurs->getId());
         $etat=new Etats();
-
-
+        /*
+        $ville=$entityManager->getRepository(Ville::class)->findAll();
+        $cp=$ville[0]->getCodePostal();
+        */
         $sortie->setOrganisateur($organisateurs);
         $sortie->setSite($site);
         $sortie->setEtat($etat);
@@ -83,16 +82,18 @@ class SortiesController extends AbstractController
     }
 
 
-    #[Route('/update_cp', name: 'update_cp', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[Route('/update_cp/{id}', name: 'update_cp', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function updateCP(Request $request,int $id, EntityManagerInterface $entityManager)
     {
-        $ville=$entityManager->getRepository(Ville::class)->findOneBy(['id'=>$id]);
-        $cp=$ville->getCodePostal();
+       // $ville=$entityManager->getRepository(Ville::class)->findOneBy(['id'=>$id]);
+       // $cp=$ville->getCodePostal();
 
         // Récupérez la liste des villes pour le pays sélectionné
         // ...dd
-        dd($cp);
+       // dd($cp);
         // Convertissez la liste des villes en format JSON et renvoyez-la
+
+        $cp='85300';
         return new JsonResponse($cp);
     }
 

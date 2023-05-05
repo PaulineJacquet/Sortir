@@ -59,15 +59,6 @@ class FormTypeSortiesType extends AbstractType
             'label'=>'Infos sortie   '
         ]);
 
-        /*
-        $builder->add('motifAnnulation',TextareaType::class,[
-            'label'=>'motif annulation  '
-        ]);
-
-        $builder ->add('photoSortie',FileType::class);
-
-        */
-
         $builder ->add('lieu',EntityType::class,[
             'label' => 'lieu :',
             'class' => Lieu::class,
@@ -83,13 +74,13 @@ class FormTypeSortiesType extends AbstractType
             'required'=>true
         ]);
 
-
         $builder ->add('ville',EntityType::class , [
             'label' => 'Ville :',
             'class' => Ville::class,
             'choice_label'=>'nom',
             'mapped' =>false,
-            'required'=>true,
+            'required'=>false,
+            'placeholder' => 'Selectionner une ville',
         ]);
 
         $builder->add('submit', SubmitType::class, [
