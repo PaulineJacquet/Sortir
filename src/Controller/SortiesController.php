@@ -82,21 +82,6 @@ class SortiesController extends AbstractController
     }
 
 
-    #[Route('/update_cp/{id}', name: 'update_cp', requirements: ['id' => '\d+'], methods: ['POST'])]
-    public function updateCP(Request $request,int $id, EntityManagerInterface $entityManager)
-    {
-       // $ville=$entityManager->getRepository(Ville::class)->findOneBy(['id'=>$id]);
-       // $cp=$ville->getCodePostal();
-
-        // Récupérez la liste des villes pour le pays sélectionné
-        // ...dd
-       // dd($cp);
-        // Convertissez la liste des villes en format JSON et renvoyez-la
-
-        $cp='85300';
-        return new JsonResponse($cp);
-    }
-
 
 
 }

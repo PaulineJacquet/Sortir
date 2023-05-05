@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Lieu;
 use App\Entity\Ville;
 use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\NoReturn;
@@ -26,7 +27,8 @@ class AjaxController extends AbstractController
         $Idville=$req->query->get('ville_id');
         $ville=$em->getRepository(Ville::class)->findOneBy(['id'=>$Idville]);
         $cp=$ville->getCodePostal();
-
-        return  new JsonResponse($cp);
+        $lieux=$em->getRepository(Lieu::class)->findBy(['id'=>$Idville]);
+        $datas=[$cp,$lieux];
+        return  new JsonResponse($datas);
     }
 }

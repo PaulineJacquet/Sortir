@@ -37,7 +37,7 @@
             </div>
             <div>
                 <label>Code postal</label>
-                <input type="text" id="CodePostal" required="required" class="form-control" value="85" disabled>
+                <input type="text" id="CodePostal" required="required" class="form-control" value="" disabled>
             </div>
             <div>
                 <label>Latitude</label>
@@ -63,11 +63,11 @@
         $(document).on('change', '#form_type_sorties_ville', function () {
             /* chargement des lieux de la ville concernée */
            // alert('test');
-          chargerCodePostal();
+          chargerdynamique();
         })
 
         /* fonction permettant de recuperer le code postal en fonction de la ville selectionnée */
-        function chargerCodePostal(){
+        function chargerdynamique(){
             jQuery.ajax({
                 method: "GET",
                 url: "/sortir/public/ajax/rechercheCodePostal", /* appel de la fonction rechercheLieuByVille du controlleur AjaxController*/
@@ -77,10 +77,16 @@
             }).done(function (response) {
                // alert('test');
                 $('#CodePostal').html(''); //initialisation de la liste des lieux
+                let cp=response[0];
+                $('#CodePostal').val(cp);
 
-                $('#CodePostal').val(response);
+                let lieux=response[1];
+
+                console.log(lieux);
             })
         }
+
+
     </script>
 
 
