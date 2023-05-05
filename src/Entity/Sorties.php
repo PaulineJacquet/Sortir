@@ -47,7 +47,7 @@ class Sorties
     #[ORM\ManyToOne(targetEntity:Lieu::class,inversedBy: 'sortie')]
     private ?Lieu $lieu = null;
 
-    #[ORM\ManyToOne(targetEntity:Etats::class ,inversedBy: 'sorties')]
+    #[ORM\ManyToOne(targetEntity: Etats::class, cascade: ["persist"], inversedBy: 'sorties')]
     private ?Etats $etat = null;
 
     #[ORM\ManyToOne(targetEntity: Sites::class, inversedBy: 'sortie')]

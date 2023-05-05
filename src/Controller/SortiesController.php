@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Etats;
 use App\Entity\Sites;
 use App\Entity\Sorties;
 use App\Entity\Ville;
@@ -24,7 +25,7 @@ class SortiesController extends AbstractController
             'controller_name' => 'SortiesController',
         ]);
     }
-
+    #[IsGranted('ROLE_USER')]
     #[Route('/AddSortie', name: 'app_sorties')]
     public function AddSortie(Request $request,EntityManagerInterface $entityManager): Response
     {
@@ -32,9 +33,13 @@ class SortiesController extends AbstractController
 
         $organisateurs= $this->getUser();
         $site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateurs->getId());
+        $etat=new Etats();
+
 
         $sortie->setOrganisateur($organisateurs);
         $sortie->setSite($site);
+        $sortie->setEtat($etat);
+
 
         $form= $this->createForm(FormTypeSortiesType::class,$sortie);
         $form->handleRequest($request);

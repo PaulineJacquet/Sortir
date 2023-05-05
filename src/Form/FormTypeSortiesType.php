@@ -92,7 +92,6 @@ class FormTypeSortiesType extends AbstractType
             'required'=>true,
         ]);
 
-
         $builder->add('submit', SubmitType::class, [
             'label' => ('Ajouter la sortie'),
         ]);
