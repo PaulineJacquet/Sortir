@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Lieu;
-use App\Entity\Participants;
+
+use App\Entity\Etats;
+use App\Entity\Sites;
 use App\Entity\Sorties;
 use App\Entity\Ville;
 use App\Form\FormTypeSortiesType;
@@ -14,6 +15,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+
 #[IsGranted('ROLE_USER')]
 class SortiesController extends AbstractController
 {
@@ -36,8 +40,16 @@ class SortiesController extends AbstractController
         $sortie->setOrganisateur($organisateurs[0]);
         $sortie->setLieu($lieu[0]);
 
-
-      // dd($sortie);
+        $organisateurs= $this->getUser();
+        $site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateurs->getId());
+        $etat=new Etats();
+        /*
+        $ville=$entityManager->getRepository(Ville::class)->findAll();
+        $cp=$ville[0]->getCodePostal();
+        */
+        $sortie->setOrganisateur($organisateurs);
+        $sortie->setSite($site);
+        $sortie->setEtat($etat);
 
 
         $form= $this->createForm(FormTypeSortiesType::class,$sortie);
@@ -55,7 +67,7 @@ class SortiesController extends AbstractController
             $this->addFlash('success', 'Votre Sortie a été ajoutée avec succés !');
 
             // Redirection sur la page de détails
-            return $this->redirectToRoute('home', [
+            return $this->redirectToRoute('app_home', [
 
             ]);
         }
@@ -76,5 +88,23 @@ class SortiesController extends AbstractController
             'sortie'=> $sortie,
         ]);
     }
+
+
+    #[Route('/update_cp/{id}', name: 'update_cp', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function updateCP(Request $request,int $id, EntityManagerInterface $entityManager)
+    {
+       // $ville=$entityManager->getRepository(Ville::class)->findOneBy(['id'=>$id]);
+       // $cp=$ville->getCodePostal();
+
+        // Récupérez la liste des villes pour le pays sélectionné
+        // ...dd
+       // dd($cp);
+        // Convertissez la liste des villes en format JSON et renvoyez-la
+
+        $cp='85300';
+        return new JsonResponse($cp);
+    }
+
+
 
 }
