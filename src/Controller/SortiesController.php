@@ -9,6 +9,7 @@ use App\Entity\Sorties;
 use App\Entity\Ville;
 use App\Form\FormTypeSortiesType;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\ORMException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SortiesController extends AbstractController
 {
-    #[Route('/sorties', name: 'app_')]
+    #[Route('/sorties', name: 'app_sorties')]
     public function index(): Response
     {
-        return $this->render('sorties/index.html.twig', [
+        return $this->render('sorties/MonProfil.html.twig', [
             'controller_name' => 'SortiesController',
         ]);
     }
@@ -30,6 +31,9 @@ class SortiesController extends AbstractController
     public function AddSortie(Request $request,EntityManagerInterface $entityManager): Response
     {
         $sortie= new Sorties();
+        //$lieu = new Lieu();
+        $organisateurs= $entityManager->getRepository(Participants::class)->findAll();
+        $lieu=$entityManager->getRepository(Lieu::class)->findAll();
 
         $organisateurs= $this->getUser();
         $site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateurs->getId());
@@ -67,6 +71,17 @@ class SortiesController extends AbstractController
 
         ]);
     }
+
+    #[Route('/sortie/{id}', name: 'app_details', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function details(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $sortie = $entityManager->getRepository(Sorties::class)->findOneBy(['id' => $id]);
+
+        return $this->render('sorties/details.html.twig', [
+            'sortie'=> $sortie,
+        ]);
+    }
+
 
     #[Route('/update_cp', name: 'update_cp', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function updateCP(Request $request,int $id, EntityManagerInterface $entityManager)

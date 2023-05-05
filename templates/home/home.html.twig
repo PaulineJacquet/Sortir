@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block h1 %}Accueil{% endblock %}
+{% block h1 %}Liste des sorties{% endblock %}
 
 {% block body %}
 
@@ -12,15 +12,15 @@
         {{ form_row(filtresForm.organisateur) }}
         {{ form_row(filtresForm.inscrit) }}
         {{ form_row(filtresForm.nonInscrit) }}
-        {{ form_row(filtresForm.passees) }}
+        {{ form_row(filtresForm.passees, {'label': 'Sorties passées', 'attr': {'checked': false}}) }}
 
     {{ form_end(filtresForm) }}
 
-    <div class="tableau_sorties">
+    <div class="tableau_sorties table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Nom de la sortie</th>
+                    <th scope="col">Sortie</th>
                     <th scope="col">Date</th>
                     <th scope="col">Clôture</th>
                     <th scope="col">Places</th>
@@ -38,9 +38,15 @@
                         <td>{{ sortie.dateLimiteInscription|date('d/m/y') }}</td>
                         <td>{{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</td>
                         <td>{{ sortie.etat.libelle }}</td>
-                        <td> ? inscrit ? </td> {# TODO - doit être loggé #}
+                        <td>
+                            {% if app.user and sortie.inscription.contains(app.user) %}
+                                Oui
+                            {% endif %}
+                        </td>
                         <td> {{ sortie.organisateur.pseudo }} </td>
-                        <td> ? actions ? </td>
+                        <td>
+                            <a href="{{ path('app_details', {'id': sortie.id}) }}">Afficher</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

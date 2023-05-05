@@ -12,63 +12,64 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
 <body class="d-flex flex-column min-vh-100">
 
     {# --------------------------------- HEADER --------------------------------- #}
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="brand">
-                <div class="brand_logo">
-                    <a href="{{ path('app_home') }}">
-                        <img src="assets/img/nightowl_logo.svg" alt="Logo NightOwl" class="nightowl_logo">
-                    </a>
+        <div class="d-flex justify-content-center">
+            <nav class="navbar navbar-expand-lg navbar-light col col-10">
+                <div class="brand">
+                    <div class="brand_logo">
+                        <a href="{{ path('app_home') }}">
+                            <img src="{{ asset('assets/img/nightowl_logo.svg') }}" alt="Logo NightOwl" class="nightowl_logo">
+                        </a>
+                    </div>
+                    <div class="brand_name">
+                        <a class="navbar-brand text-white" href="{{ path('app_home') }}">NightOwl</a>
+                    </div>
                 </div>
-                <div class="brand_name">
-                    <a class="navbar-brand text-white" href="{{ path('app_home') }}">NightOwl</a>
-                </div>
-            </div>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse text-white" id="navbarNav">
-                <ul class="navbar-nav">
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Villes</a>
+                <div class="collapse navbar-collapse text-white" id="navbarNav">
+                    <ul class="navbar-nav">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#">Villes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#">Sites</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item active">
+                            <a class="nav-link text-white" href="{{ path('app_home') }}">Accueil</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Sites</a>
-                        </li>
-                    {% endif %}
-                    <li class="nav-item active">
-                        <a class="nav-link text-white" href="{{ path('app_home') }}">Accueil</a>
-                    </li>
-                    {% if app.user %}
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Mon profil</a>
-                        </li>
+                        {% if app.user %}
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ path('app_mon_profil') }}">Mon profil</a>
+                            </li>
 
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ path('app_logout') }}">Se déconnecter</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ path('app_sorties') }}">Ajouter une sortie</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ path('app_sorties') }}">Ajouter une sortie</a>
+                            </li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ path('app_login') }}">Se connecter</a>
                         </li>
                     {% endif %}
 
-                </ul>
-            </div>
-        </nav>
-
+                    </ul>
+                </div>
+            </nav>
+        </div>
     </header>
 
     {# --------------------------------- MAIN --------------------------------- #}
