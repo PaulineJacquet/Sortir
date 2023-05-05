@@ -24,16 +24,19 @@ class MonProfilType extends AbstractType
                 'label' => 'Pseudo',
                 'trim' => true,
                 'required' => true
+
             ])
             ->add('prenom', TextType::class, [
                 'label' => 'Prénom',
                 'trim' => true,
-                'required' => true
+                'required' => true,
+                'disabled' => true
             ])
             ->add('nom', TextType::class, [
                 'label' => 'Nom',
                 'trim' => true,
-                'required' => true
+                'required' => true,
+                'disabled' => true
             ])
             ->add('telephone', TelType::class, [
                 'label' => 'Téléphone',
@@ -60,11 +63,13 @@ class MonProfilType extends AbstractType
                 'trim' => true,
                 'required' => true,
                 'class' => Sites::class,
-                'choice_label'=>'nom'
+                'choice_label'=>'nom',
+                'disabled' => true
             ])
             ->add('photo',FileType::class, [
                 'label' => 'Ma photo',
-                'mapped' => false
+                'mapped' => false,
+                'required' => false,
             ])
             ->add('submit', SubmitType::class,[
                 'label'=> 'Modifier mon profil',

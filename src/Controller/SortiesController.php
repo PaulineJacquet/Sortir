@@ -9,11 +9,12 @@ use App\Entity\Ville;
 use App\Form\FormTypeSortiesType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+#[IsGranted('ROLE_USER')]
 class SortiesController extends AbstractController
 {
     #[Route('/sorties', name: 'app_sorties')]
