@@ -38,6 +38,22 @@ class LieuRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    /*
+    public function getLieuxByVille(int $id){
+        $query = $this->createQueryBuilder('lieu')
+            ->Where('lieu.ville->getId() =:id')->setParameter('id',$id);
+
+        return $query->getQuery()->getResult();
+    }
+     */
+    public function getLieuxByVille(int $id){
+        $query = $this->createQueryBuilder('lieu')
+            ->join('lieu.ville', 'ville')
+            ->where('ville.id = :id')
+            ->setParameter('id', $id);
+
+        return $query->getQuery()->getResult();
+    }
 
 //    /**
 //     * @return Lieu[] Returns an array of Lieu objects

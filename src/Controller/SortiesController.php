@@ -42,13 +42,10 @@ class SortiesController extends AbstractController
         $sortie->setOrganisateur($organisateurs[0]);
         $sortie->setLieu($lieu[0]);
 
-        $organisateurs= $this->getUser();
+        $organisateurs=$this->getUser();
         $site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateurs->getId());
         $etat=new Etats();
-        /*
-        $ville=$entityManager->getRepository(Ville::class)->findAll();
-        $cp=$ville[0]->getCodePostal();
-        */
+
         $sortie->setOrganisateur($organisateurs);
         $sortie->setSite($site);
         $sortie->setEtat($etat);

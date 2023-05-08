@@ -58,7 +58,7 @@ class FormTypeSortiesType extends AbstractType
         $builder->add('infosSortie',TextareaType::class,[
             'label'=>'Infos sortie   '
         ]);
-
+        /*
         $builder ->add('lieu',EntityType::class,[
             'label' => 'lieu :',
             'class' => Lieu::class,
@@ -66,13 +66,15 @@ class FormTypeSortiesType extends AbstractType
             'attr' => ['class' => 'form-control'],
             'required'=>true
         ]);
-
+    */
+        /*
         $builder ->add('organisateur',EntityType::class , [
             'label' => 'Organisateur :',
             'class' => Participants::class,
             'choice_label'=>'pseudo',
             'required'=>true
         ]);
+         */
 
         $builder ->add('ville',EntityType::class , [
             'label' => 'Ville :',
@@ -84,8 +86,14 @@ class FormTypeSortiesType extends AbstractType
         ]);
 
         $builder->add('submit', SubmitType::class, [
-            'label' => ('Ajouter la sortie'),
+            'label' => ('Enregistrer la sortie'),
         ]);
+
+        /*
+        $builder->add('submit', SubmitType::class, [
+            'label' => ('publier la sortie'),
+        ]);
+        */
     }
 
     public function configureOptions(OptionsResolver $resolver): void
