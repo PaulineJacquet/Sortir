@@ -27,8 +27,43 @@ class AjaxController extends AbstractController
         $Idville=$req->query->get('ville_id');
         $ville=$em->getRepository(Ville::class)->findOneBy(['id'=>$Idville]);
         $cp=$ville->getCodePostal();
-        $lieux=$em->getRepository(Lieu::class)->findBy(['id'=>$Idville]);
-        $datas=[$cp,$lieux];
-        return  new JsonResponse($datas);
+        return  new JsonResponse($cp);
+    }
+
+    #[NoReturn] #[Route('/sortir/public/ajax/rechercheLieux', name: 'app_ajax_lieux', methods: ['GET'])]
+    public function RechercherListeLieux(Request $req,EntityManagerInterface $em): Response
+    {
+        $idville=$req->query->get('ville_id');
+        $lieux=$em->getRepository(Lieu::class)->getLieuxByVille($idville);
+
+        $jsonData = array();
+        $idx = 0;
+        foreach($lieux as $lieu) {
+            $temp = array(
+                'nom' => $lieu->getNom(),
+                'rue' => $lieu->getRue(),
+                'latitude' => $lieu->getLatitude(),
+                'longitude' =>$lieu->getLongitude()
+            );
+            $jsonData[$idx++] = $temp;
+        }
+        return new JsonResponse($jsonData);
+
+    }
+
+    #[NoReturn] #[Route('/sortir/public/ajax/rechercheInfosLieux', name: 'app_ajax_infos_lieu', methods: ['GET'])]
+    public function RechercherinfosLieu(Request $req,EntityManagerInterface $em): Response
+    {
+        $nomLieu=$req->query->get('lieu_nom');
+        $lieu=$em->getRepository(Lieu::class)->findOneBy(['nom'=>$nomLieu]);
+
+        $infos = array(
+            'rue' => $lieu->getRue(),
+            'latitude' => $lieu->getLatitude(),
+            'longitude' =>$lieu->getLongitude()
+        );
+
+
+        return new JsonResponse($infos);
     }
 }
