@@ -33,7 +33,7 @@ class MonProfilController extends AbstractController
         }
 
         return $this->render('mon_profil/MonProfil.html.twig', [
-            'formProfil' => $form->createView(),
+            'formProfil' => $form->createView()
         ]);
     }
     #[Route('/password', name: 'app_password', methods: ['GET', 'POST'])]
@@ -54,7 +54,8 @@ class MonProfilController extends AbstractController
                 return $this->redirectToRoute('app_mon_profil');
             } else{
                 $this->addFlash('danger', 'Ancien mot de passe incorrect');
-            }        }
+            }
+        }
 
         return $this->render('mon_profil/Password.html.twig', [
            'formMdp' => $form->createView(),
