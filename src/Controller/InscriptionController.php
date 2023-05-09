@@ -51,8 +51,8 @@ class InscriptionController extends AbstractController
 
         $user=$this->getUser();
 
+       // $inscription=$entityManager->getRepository(Inscriptions::class)->findOneBy(['sortie.id'=>$sortie->getId(),'user.id'=>$user->getId()]);
         $inscription=$entityManager->getRepository(Inscriptions::class)->findOneBySortieAndParticipant($sortie->getId(),$user->getId());
-        //dd($inscription);
 
         $entityManager->remove($inscription);
 
