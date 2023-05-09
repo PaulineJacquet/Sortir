@@ -4,37 +4,46 @@
 
 {% block body %}
 
-        <div class="tableau_sorties table-responsive">
-            <table class="table table-striped">
-                <thead>
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="tableau_sorties table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Site</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for site in sites %}
                 <tr>
-                    <th scope="col">Site</th>
-                    <th scope="col">Actions</th>
+                    <td>{{ site.nom }}</td>
+                    <td>
+                        <a href="#">Modifier</a>
+                        <form action="{{ path('app_admin_sites') }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer {{ site.nom }} ?')">
+                            <input type="hidden" name="delete" value="{{ site.id }}" />
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                        </form>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                {% for site in sites %}
-                    <tr>
-                        <td>{{ site.nom }}</td>
-                        <td>
-                            <a href="#">Modifier</a>
-                            <form action="{{ path('app_admin_sites') }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer {{ site.nom }} ?')">
-                                <input type="hidden" name="delete" value="{{ site.id }}" />
-                                <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                            </form>
-                        </td>
-                    </tr>
-                {% endfor %}
-                {{ form_start(sitesForm) }}
-                    <tr>
-                        <td>{{ form_widget(sitesForm.nom) }}</td>
-                        <td>
-                            {{ form_widget(sitesForm.ajouter) }}
-                        </td>
-                    </tr>
-                {{ form_end(sitesForm) }}
-                </tbody>
-            </table>
-        </div>
+            {% endfor %}
+            {{ form_start(sitesForm) }}
+                <tr>
+                    <td>{{ form_widget(sitesForm.nom) }}</td>
+                    <td>
+                        {{ form_widget(sitesForm.ajouter) }}
+                    </td>
+                </tr>
+            {{ form_end(sitesForm) }}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}
