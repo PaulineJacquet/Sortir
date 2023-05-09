@@ -34,7 +34,7 @@
             </thead>
             <tbody>
                 {% for sortie in sorties %}
-
+                    {% set est_inscris="false" %}
                     <tr>
                         <td>{{ sortie.nom }}</td>
                         <td>{{ sortie.dateHeureDebut|date('d/m/y H:i') }}</td>
@@ -43,8 +43,9 @@
                         <td>{{ sortie.etat.libelle }}</td>
                         <td>{% if app.user %}
                                 {% for inscription in inscriptions %}
+                                    {% set est_inscris="false" %}
                                     {% if inscription.participant.id  ==  app.user.id and sortie.id ==inscription.sortie.id %}
-                                        X
+                                        X {% set est_inscris="true" %}
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
@@ -52,26 +53,13 @@
                         <td> {{ sortie.organisateur.pseudo }}</td>
                         <td>
                             <a class="customBTN" href="{{ path('app_details', {'id': sortie.id}) }}">Afficher</a>
-                            {% if app.user and sortie.etat.libelle =="Ouverte" %}
-
-                                {% if inscriptions is empty %}
-                                    <a class="customBTN" href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
-                                {%endif %}
-
-                                {% if inscriptions is not empty %}
-
-                                    {% for inscription in inscriptions %}
-                                        {% if inscription.participant.id  ==  app.user.id and sortie.id ==inscription.sortie.id %}
-
-                                            <a class="customBTN" href="{{ path('app_desinscrire', {'id': sortie.id}) }}">Se désinscrire</a>
-
-                                        {% else %}
-
-                                            <a class="customBTN" href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
-
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+                            {% if app.user and sortie.etat.libelle =="Ouverte" and est_inscris=="false" %}
+                                <a class="customBTN" href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
+                            {% elseif est_inscris=="true"%}
+                                <a class="customBTN"href="{{ path('app_desinscrire', {'id': sortie.id}) }}">Se désinscrire</a>
+                            {% endif %}
+                            {% if app.user and sortie.organisateur == app.user %}
+                                <a class='customBTN' href="{{ path('app_annuler_sortie', {'id': sortie.id}) }}">Annuler la sortie</a>
                             {% endif %}
                         </td>
                     </tr>
