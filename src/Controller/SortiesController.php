@@ -88,12 +88,22 @@ class SortiesController extends AbstractController
         ]);
     }
 
-    #[Route('/sortie/{id}', name: 'app_details', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route('/sortie/{id}', name: 'app_details', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function details(int $id, EntityManagerInterface $entityManager): Response
     {
         $sortie = $entityManager->getRepository(Sorties::class)->findOneBy(['id' => $id]);
 
         return $this->render('sorties/details.html.twig', [
+            'sortie'=> $sortie,
+        ]);
+    }
+
+    #[Route('/annulersortie/{id}', name: 'app_annuler_sortie', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function annuler(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $sortie = $entityManager->getRepository(Sorties::class)->findOneBy(['id' => $id]);
+
+        return $this->render('sorties/annuler.html.twig', [
             'sortie'=> $sortie,
         ]);
     }
