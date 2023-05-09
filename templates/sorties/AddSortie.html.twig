@@ -32,8 +32,7 @@
             {# champ de saisie inputNomLieu #}
             <div class="form-group">
                 <label for="selectNomLieu">lieu</label>
-
-                <select class="form-select" id="selectNomLieu">
+                <select class="form-select" id="selectNomLieu" name="lieu">
                 </select>
             </div>
 
@@ -54,7 +53,20 @@
                 <input type="text" id="longitude"  class="form-control">
             </div>
         </div>
-        {{ form_row(formSortie.submit) }}
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <div class="col">
+                <input type="submit" class="customBTN" value="Enregistrer" name="action">
+            </div>
+            <div class="col">
+                <input type="submit" class="customBTN" value="Publier" name="action">
+            </div>
+            <div class="col">
+                <button onclick="location.href='{{ path('app_home') }}'" class='customBTN' name="action">Annuler</button>
+            </div>
+            </div>
     </div>
 
     {{ form_end(formSortie) }}
