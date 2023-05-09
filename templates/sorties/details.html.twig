@@ -2,20 +2,34 @@
 
 {% block title %}{{ parent() }} - {{ sortie.nom }}{% endblock %}
 
-{% block h1 %}{{ sortie.nom }}{% endblock %}
+{% block h1 %} Détails de la sortie : {{ sortie.nom }}{% endblock %}
 
 {% block body %}
-    <p>Organisateur : {{ sortie.organisateur.pseudo }}</p>
-    <p>Lieu de la sortie : {{ sortie.lieu.nom }}</p>
-    <p>Site de rattachement : {{ sortie.site.nom }}</p>
-    <p>Etat : {{ sortie.etat.libelle }}</p>
-    <p>Date et heure : {{ sortie.dateHeureDebut|date('d/m/y H:i') }} </p>
-    <p>Durée : {{ sortie.duree}} heures </p>
-    <p>Date limite d'inscription : {{ sortie.dateLimiteInscription|date('d/m/y') }}</p>
-    <p>Inscriptions : {{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</p>
-    <p>Informations : {{ sortie.infosSortie }}</p>
-    <p>Photo : {{ sortie.photoSortie }}</p>
-    <p>Annulation : {{ sortie.motifAnnulation }}</p>
+
+    <div class="container">
+        <div class="row justify-content-sm-around">
+            <div class="row">
+                <div class="col-sm">
+                    <p>Nom de la sortie : {{ sortie.nom }}</p>
+                    <p>Date et heure : {{ sortie.dateHeureDebut|date('d/m/y H:i') }} </p>
+                    <p>Date limite d'inscription : {{ sortie.dateLimiteInscription|date('d/m/y') }}</p>
+                    <p>Nombre de places : {{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</p>
+                    <p>Durée : {{ sortie.duree }} heures</p>
+                    <p>Description et infos : {{ sortie.infosSortie }}</p>
+                </div>
+                <div class="col-sm">
+                    <p>Organisateur : {{ sortie.organisateur.pseudo }}</p>
+                    <p>Ville organisatrice : {{ sortie.site.nom }}</p>
+                    <p>Lieu : {{ sortie.lieu.nom }}</p>
+                    <p>Rue : {{ sortie.lieu.rue }}</p>
+                    <p>Code postal : ON RECUP PAS LE CP ?</p>
+                    <p>Latitude : {{ sortie.lieu.latitude }}</p>
+                    <p>Longitude : {{ sortie.lieu.longitude }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <a class="customBTN" href="">Afficher les participants</a>
+
 {% endblock %}
