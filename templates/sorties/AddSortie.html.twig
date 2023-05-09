@@ -54,7 +54,19 @@
                 <input type="text" id="longitude"  class="form-control">
             </div>
         </div>
-        {{ form_row(formSortie.submit) }}
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <div class="col">
+                <input type="submit" class="customBTN" value="Enregistrer" name="action">
+            </div>
+            <div class="col">
+                <input type="submit" class="customBTN" value="Publier" name="action">
+            </div>
+            <div class="col">
+                <input type="submit" class="customBTN" value="Annuler" name="action">
+            </div>
     </div>
 
     {{ form_end(formSortie) }}

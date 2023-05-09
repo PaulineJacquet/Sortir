@@ -85,15 +85,8 @@ class FormTypeSortiesType extends AbstractType
             'placeholder' => 'Selectionner une ville',
         ]);
 
-        $builder->add('submit', SubmitType::class, [
-            'label' => ('Enregistrer la sortie'),
-        ]);
 
-        /*
-        $builder->add('submit', SubmitType::class, [
-            'label' => ('publier la sortie'),
-        ]);
-        */
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
