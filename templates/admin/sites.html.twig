@@ -22,12 +22,14 @@
                         </td>
                     </tr>
                 {% endfor %}
+                {{ form_start(sitesForm) }}
                     <tr>
-                        <td>FORM INPUT</td>
+                        <td>{{ form_widget(sitesForm.nom) }}</td>
                         <td>
-                            <a href="#" class="customBTN">Ajouter</a>
+                            {{ form_widget(sitesForm.ajouter) }}
                         </td>
                     </tr>
+                {{ form_end(sitesForm) }}
                 </tbody>
             </table>
         </div>
