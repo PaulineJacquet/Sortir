@@ -6,6 +6,7 @@ use App\Entity\Participants;
 use App\Entity\Sites;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -47,17 +48,6 @@ class MonProfilType extends AbstractType
                 'trim' => true,
                 'required' => true
             ])
-            ->add('password',PasswordType::class, [
-                'label' => 'Mot de passe',
-                'trim' => true,
-                'required' => true
-            ])
-            ->add('confirmPassword',PasswordType::class, [
-                'label' => 'Confirmation',
-                'trim' => true,
-                'required' => true,
-                'mapped' => false
-            ])
             ->add('site', EntityType::class, [
                 'label' => 'Ville de rattachement',
                 'trim' => true,
@@ -70,10 +60,6 @@ class MonProfilType extends AbstractType
                 'label' => 'Ma photo',
                 'mapped' => false,
                 'required' => false,
-            ])
-            ->add('submit', SubmitType::class,[
-                'label'=> 'Modifier mon profil',
-                'attr' => ['class' => 'customBTN']
             ])
         ;
     }

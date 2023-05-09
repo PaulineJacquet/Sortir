@@ -4,11 +4,23 @@
 
 {% block body %}
     {% form_theme formProfil 'bootstrap_5_layout.html.twig' %}
-
+    {{ form_start(formProfil) }}
     <div class="d-flex justify-content-center align-items-center container">
         <div class="col-auto">
             <h1>Mon profil</h1>
-            {{ form(formProfil) }}
+            {{ form_row(formProfil.pseudo) }}
+            {{ form_row(formProfil.prenom) }}
+            {{ form_row(formProfil.nom) }}
+            {{ form_row(formProfil.telephone) }}
+            {{ form_row(formProfil.mail) }}
+            {{ form_row(formProfil.site) }}
+            {{ form_row(formProfil.photo) }}
+            <div class="d-flex justify-content-between">
+                <input type="submit" class="customBTN" value="Modifier" name="action">
+                <a class="customBTN" href="{{ path('app_home') }}">Annuler</a>
+            </div>
+            {{ form_end(formProfil) }}<br>
+            <a href="{{ path('app_password') }}">Modifier mon mot de passe</a>
         </div>
     </div>
 {% endblock %}

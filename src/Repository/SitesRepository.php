@@ -47,6 +47,13 @@ class SitesRepository extends ServiceEntityRepository
         return $query->getQuery()->getSingleResult();
     }
 
+    public function findAllByID(): array
+    {
+        return $this->createQueryBuilder('sites')
+            ->orderBy('sites.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Sites[] Returns an array of Sites objects
