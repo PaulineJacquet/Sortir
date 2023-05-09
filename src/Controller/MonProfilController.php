@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MonProfilController extends AbstractController
 {
 
-    #[Route('/monprofil', name: 'app_mon_profil')]
+    #[Route('/monprofil', name: 'app_mon_profil', methods: ['GET', 'POST'])]
     public function monprofil(Request $request, EntityManagerInterface $entityManager): Response
     {
         $participant = $this->getUser();
