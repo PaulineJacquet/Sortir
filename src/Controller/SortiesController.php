@@ -46,6 +46,9 @@ class SortiesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $action=$_POST['action'];
+            $nomLieu=$_POST['lieu'];
+
+
 
             $req="";
             switch ($action) {
@@ -61,8 +64,10 @@ class SortiesController extends AbstractController
             }
 
             $etat=$entityManager->getRepository(Etats::class)->findOneBy(['libelle' => $req]);
+            $lieu=$entityManager->getRepository(Lieu::class)->findOneBy(['nom'=>$nomLieu]);
 
             $sortie->setEtat($etat);
+            $sortie->setLieu($lieu);
 
            // dd($sortie);
             $entityManager->persist($sortie);
