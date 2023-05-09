@@ -88,7 +88,4 @@ class SortiesController extends AbstractController
         ]);
     }
 
-
-
-
 }
