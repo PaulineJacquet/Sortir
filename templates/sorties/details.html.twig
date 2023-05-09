@@ -5,5 +5,17 @@
 {% block h1 %}{{ sortie.nom }}{% endblock %}
 
 {% block body %}
+    <p>Organisateur : {{ sortie.organisateur.pseudo }}</p>
+    <p>Lieu de la sortie : {{ sortie.lieu.nom }}</p>
+    <p>Site de rattachement : {{ sortie.site.nom }}</p>
+    <p>Etat : {{ sortie.etat.libelle }}</p>
+    <p>Date et heure : {{ sortie.dateHeureDebut|date('d/m/y H:i') }} </p>
+    <p>Durée : {{ sortie.duree}} heures </p>
+    <p>Date limite d'inscription : {{ sortie.dateLimiteInscription|date('d/m/y') }}</p>
+    <p>Inscriptions : {{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</p>
+    <p>Informations : {{ sortie.infosSortie }}</p>
+    <p>Photo : {{ sortie.photoSortie }}</p>
+    <p>Annulation : {{ sortie.motifAnnulation }}</p>
 
+    <a class="customBTN" href="">Afficher les participants</a>
 {% endblock %}
