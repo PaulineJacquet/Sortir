@@ -48,8 +48,6 @@ class SortiesController extends AbstractController
             $action=$_POST['action'];
             $nomLieu=$_POST['lieu'];
 
-
-
             $req="";
             switch ($action) {
                 case "Enregistrer":
