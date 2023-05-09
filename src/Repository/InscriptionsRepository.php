@@ -39,6 +39,21 @@ class InscriptionsRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOneBySortieAndParticipant(int $idSortie,int $idUser): Inscriptions|null
+    {
+        $query = $this->createQueryBuilder('i')
+            ->join('i.sortie', 's')
+            ->join('i.participant', 'p')
+            ->where('s.id = :idsortie')
+            ->andWhere('p.id = :idUser')
+            ->setParameter('idUser', $idUser)
+            ->setParameter('idsortie', $idSortie);
+
+        return $query->getQuery()->getOneOrNullResult();
+    }
+
+
+
 //    /**
 //     * @return Inscriptions[] Returns an array of Inscriptions objects
 //     */

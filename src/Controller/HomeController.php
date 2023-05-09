@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Inscriptions;
 use App\Entity\Sorties;
 use App\Form\SortiesFilterType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,6 +25,8 @@ class HomeController extends AbstractController
         $filtresForm = $this->createForm(SortiesFilterType::class);
         $filtresForm->handleRequest($request);
 
+        $inscriptions=$entityManager->getRepository(Inscriptions::class)->findAll();
+
         if ($filtresForm->isSubmitted() && $filtresForm->isValid()) {
             $filtres = $filtresForm->getData();
             $sorties = $sortiesRepository->findByFiltres($filtres);
@@ -31,6 +34,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/home.html.twig', [
             'sorties' => $sorties,
+            'inscriptions'=>$inscriptions,
             'filtresForm' => $filtresForm->createView(),
         ]);
     }

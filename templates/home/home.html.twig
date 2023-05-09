@@ -34,20 +34,30 @@
             </thead>
             <tbody>
                 {% for sortie in sorties %}
+                    {% set est_inscris="false" %}
                     <tr>
                         <td>{{ sortie.nom }}</td>
                         <td>{{ sortie.dateHeureDebut|date('d/m/y H:i') }}</td>
                         <td>{{ sortie.dateLimiteInscription|date('d/m/y') }}</td>
                         <td>{{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</td>
                         <td>{{ sortie.etat.libelle }}</td>
-                        <td>
-                            {% if app.user and sortie.inscription.contains(app.user) %}
-                                Oui
+                        <td>{% if app.user %}
+                                {% for inscription in inscriptions %}
+                                    {% set est_inscris="false" %}
+                                    {% if inscription.participant.id  ==  app.user.id and sortie.id ==inscription.sortie.id %}
+                                        X {% set est_inscris="true" %}
+                                    {% endif %}
+                                {% endfor %}
                             {% endif %}
                         </td>
-                        <td> {{ sortie.organisateur.pseudo }} </td>
+                        <td> {{ sortie.organisateur.pseudo }}</td>
                         <td>
                             <a href="{{ path('app_details', {'id': sortie.id}) }}">Afficher</a>
+                            {% if app.user and sortie.etat.libelle =="Ouverte" and est_inscris=="false" %}
+                                <a href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
+                            {% elseif est_inscris=="true"%}
+                                <a href="{{ path('app_desinscrire', {'id': sortie.id}) }}">Se désinscrire</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
