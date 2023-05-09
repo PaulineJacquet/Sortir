@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Participants;
 use App\Form\MdpType;
 use App\Form\MonProfilType;
-use App\Form\PasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
