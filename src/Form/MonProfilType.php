@@ -61,10 +61,6 @@ class MonProfilType extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])
-            ->add('submit', SubmitType::class,[
-                'label'=> 'Modifier mon profil',
-                'attr' => ['class' => 'customBTN']
-            ])
         ;
     }
 

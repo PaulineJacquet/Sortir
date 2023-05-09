@@ -7,10 +7,14 @@
 
     <div class="d-flex justify-content-center align-items-center container">
         <div class="col-auto">
+
             <h1>Mon profil</h1>
-            {{ form(formProfil) }}
-            <button type="button" onclick="location.href='{{ path('app_home') }}'" class="customBTN">Annuler</button><br>
+                {{ form(formProfil) }}
+            <div class="d-flex justify-content-between">
+                <input type="submit" class="customBTN" value="Modifier" name="modifier">
+                <button onclick="location.href='{{ path('app_home') }}'" class='customBTN btn'>Annuler</button>
+            </div>
+            <br>
             <a href="{{ path ('app_mon_profil')}}">Modifier mon mot de passe</a>
-        </div>
     </div>
 {% endblock %}
