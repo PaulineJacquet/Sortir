@@ -26,10 +26,9 @@
                 <tr>
                     <td>{{ site.nom }}</td>
                     <td>
-                        <a href="#">Modifier</a>
                         <form action="{{ path('app_admin_sites') }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer {{ site.nom }} ?')">
                             <input type="hidden" name="delete" value="{{ site.id }}" />
-                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                            <button type="submit" class="customBTNred">Supprimer</button>
                         </form>
                     </td>
                 </tr>
