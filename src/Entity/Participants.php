@@ -107,15 +107,12 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        //$roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        if ($administrateur = 1) {
-            $roles[] = 'ROLE_ADMIN';
-        }
-        $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
-        //return ['ROLE_USER'];
+        if ($this->administrateur == true) {
+            $roles[] = 'ROLE_ADMIN';
+        }else{
+            $roles[] = 'ROLE_USER';
+        }        return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
