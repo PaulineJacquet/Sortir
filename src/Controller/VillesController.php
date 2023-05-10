@@ -18,10 +18,10 @@ class VillesController extends AbstractController
     public function villes(Request $request, EntityManagerInterface $entityManager): Response
     {
         $villeRepository = $entityManager->getRepository(Ville::class);
-        $villes = $villeRepository->findAll();
+        $villes = $villeRepository->findAllByID();
 
-        $villes = new Ville();
-        $villesForm = $this->createForm(VillesType::class, $villes);
+        $ville = new Ville();
+        $villesForm = $this->createForm(VillesType::class, $ville);
         $villesForm->handleRequest($request);
 
         //Ajouter d'une ville
