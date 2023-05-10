@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Profil {{ profil.pseudo }}{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center align-items-center container">
+        <div class="col-auto">
+            <h1>{{ profil.pseudo }}</h1>
+            {% for label, messages in app.flashes() %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <p>Prénom : {{ profil.prenom }}</p>
+            <p>Nom : {{ profil.nom }}</p>
+            <p>Téléphone: {{ profil.telephone }}</p>
+            <p>Email : {{ profil.mail }}</p>
+            <p>Ville de rattachement : {{ profil.site.nom }}</p>
+            <a class="customBTN" href="{{ path('app_home') }}">Retour</a>
+        </div>
+    </div>
+{% endblock %}

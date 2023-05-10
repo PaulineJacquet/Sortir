@@ -5,11 +5,12 @@ namespace App\Controller;
 use App\Entity\Ville;
 use App\Form\VillesType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin/', name: 'app_admin_')]
 class VillesController extends AbstractController
 {
