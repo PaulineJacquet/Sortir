@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} / Admin - Participants{% endblock %}
+
+{% block h1 %}Gestion des participants{% endblock %}
+
+{% block body %}
+
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+
+    <div class="tableau_sorties table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr class="tab_participants">
+                <th scope="col">Pseudo</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Mot de passe</th>
+                <th scope="col">Admin</th>
+                <th scope="col">Actif</th>
+                <th scope="col">Site</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for participant in participants %}
+                <tr class="tab_participants">
+                    <td>{{ participant.pseudo }}</td>
+                    <td>{{ participant.nom }}</td>
+                    <td>{{ participant.prenom }}</td>
+                    <td>{{ participant.telephone }}</td>
+                    <td>{{ participant.mail }}</td>
+                    <td>***</td>
+                    <td>{{ participant.administrateur }}</td>
+                    <td>{{ participant.actif }}</td>
+                    <td>{{ participant.site.nom }}</td>
+                    <td>
+                        <form action="{{ path('app_admin_participants') }}" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer {{ participant.pseudo }} ?')">
+                            <input type="hidden" name="delete" value="{{ participant.id }}" />
+                            <button type="submit" class="customBTNred">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            {#
+            {{ form_start(participantsForm) }}
+                <tr>
+                    <td>{{ form_widget(participantsForm.pseudo) }}</td>
+                    <td>{{ form_widget(participantsForm.nom) }}</td>
+                    <td>{{ form_widget(participantsForm.prenom) }}</td>
+                    <td>{{ form_widget(participantsForm.telephone) }}</td>
+                    <td>{{ form_widget(participantsForm.mail) }}</td>
+                    <td>{{ form_widget(participantsForm.password) }}</td>
+                    <td>{{ form_widget(participantsForm.administrateur) }}</td>
+                    <td>{{ form_widget(participantsForm.actif) }}</td>
+                    <td>{{ form_widget(participantsForm.site) }}</td>
+                    <td>{{ form_widget(participantsForm.ajouter) }}</td>
+                </tr>
+            {{ form_end(participantsForm) }}}
+            #}
+
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
