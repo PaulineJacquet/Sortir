@@ -96,6 +96,12 @@
 
                 <div class="row text-center d-flex justify-content-center">
 
+                    <div class="col-md-2">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <a href="{{ path('app_home') }}" class="text-white text-decoration-none">Accueil</a>
+                        </h6>
+                    </div>
+
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="col-md-2">
                             <h6 class="text-uppercase font-weight-bold">
@@ -118,18 +124,9 @@
 
                     <div class="col-md-2">
                         <h6 class="text-uppercase font-weight-bold">
-                            <a href="{{ path('app_home') }}" class="text-white text-decoration-none">Accueil</a>
+                            <a href="{{ path('app_mon_profil') }}" class="text-white text-decoration-none">Mon profil</a>
                         </h6>
                     </div>
-
-                    {% if app.user %}
-                        <div class="col-md-2">
-                            <h6 class="text-uppercase font-weight-bold">
-                                <a href="{{ path('app_mon_profil') }}" class="text-white text-decoration-none">Mon profil</a>
-                            </h6>
-                        </div>
-                    {% endif %}
-
                 </div>
 
             </section>

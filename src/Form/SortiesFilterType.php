@@ -49,6 +49,7 @@ class SortiesFilterType extends AbstractType
             ])
             ->add('rechercher', SubmitType::class, [
                 'label' => 'Rechercher',
+                'attr' => ['class' => 'customBTN']
             ]);
     }
 

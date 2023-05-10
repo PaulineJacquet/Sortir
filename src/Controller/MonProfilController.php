@@ -28,7 +28,7 @@ class MonProfilController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-            $this->addFlash('success', 'Le profil a été modifié avec succés !');
+            $this->addFlash('success', 'Le profil a été modifié avec succès !');
             return $this->redirectToRoute('app_mon_profil');
 
         }
@@ -51,7 +51,7 @@ class MonProfilController extends AbstractController
                 $newhashedPassword = $passwordHasher->hashPassword($participant, $plainPassword);
                 $participant->setPassword($newhashedPassword);
                 $entityManager->flush();
-                $this->addFlash('success', 'Le mot de passe a été modifié avec succés !');
+                $this->addFlash('success', 'Le mot de passe a été modifié avec succès !');
                 return $this->redirectToRoute('app_mon_profil');
             } else{
                 $this->addFlash('danger', 'Ancien mot de passe incorrect');
