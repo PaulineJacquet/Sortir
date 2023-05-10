@@ -69,7 +69,7 @@
                                     {# #}
                             {% endif  %}
 
-                            {% if (app.user and sortie.organisateur == app.user and sortie.etat.id == 2) or app.user.roles[0] =="ROLE_ADMIN"%}
+                            {% if ((app.user and sortie.organisateur == app.user) or app.user.roles[0] =="ROLE_ADMIN")and sortie.etat.id == 2%}
                                 <a class='customBTNred' href="{{ path('app_annuler_sortie', {'id': sortie.id}) }}">Annuler la sortie</a>
                             {% endif %}
                         </td>
