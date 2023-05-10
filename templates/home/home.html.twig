@@ -62,7 +62,10 @@
                         </td>
                         <td>
                             {% if (sortie.participe.contains(app.user)) or (app.user.roles[0] =="ROLE_ADMIN") or (sortie.organisateur == app.user)%}
-                                <a id="profil" href="{{ path('app_profil', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a>
+                                <form action="{{ path('app_profil') }}" method="POST">
+                                    <input type="hidden" name="id" value="{{ sortie.organisateur.id }}" />
+                                    <button type="submit" class="btn btn-link" >{{ sortie.organisateur.pseudo }}</button>
+                                </form>
                             {% else %}
                                 {{ sortie.organisateur.pseudo }}
                             {% endif %}

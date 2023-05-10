@@ -62,13 +62,17 @@ class MonProfilController extends AbstractController
            'formMdp' => $form->createView(),
         ]);
     }
-    #[Route('/profil/{id}', name: 'app_profil', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function profil(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/profil', name: 'app_profil', methods: ['GET','POST'])]
+    public function profil(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $profil = $entityManager->getRepository(Participants::class)->findOneBy(['id' => $id]);
-        return $this->render('mon_profil/Profil.html.twig', [
-            'profil' => $profil,
-        ]);
+        if ($request->isMethod('POST')) {
+            $id = $request->request->get('id');
+            $profil = $entityManager->getRepository(Participants::class)->findOneBy(['id' => $id]);
+            return $this->render('mon_profil/Profil.html.twig', [
+                'profil' => $profil
+            ]);
+        }else{
+            return $this->redirectToRoute('app_home');
+        }
     }
-
 }

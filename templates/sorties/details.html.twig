@@ -56,7 +56,13 @@
                     {% for participant in participants %}
                         <tr>
                             {% if (sortie.participe.contains(app.user)) or (app.user.roles[0] =="ROLE_ADMIN") or (sortie.organisateur == app.user)%}
-                                <td><a id="profil" href="{{ path('app_profil', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
+
+                                <td>
+                                    <form action="{{ path('app_profil') }}" method="POST">
+                                        <input type="hidden" name="id" value="{{ participant.id }}" />
+                                        <button type="submit" class="btn btn-link" >{{ participant.pseudo }}</button>
+                                    </form>
+                                </td>
                                 <td>{{ participant.nom }} {{ participant.prenom }}</td>
                             {% else %}
                                 <td>{{ participant.pseudo }}</td>
