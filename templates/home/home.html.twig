@@ -71,7 +71,7 @@
 
 
 
-                            {% if app.user and sortie.organisateur == app.user %}
+                            {% if app.user and sortie.organisateur == app.user and (sortie.etat.id == 1 or sortie.etat.id == 2) %}
                                 <a class='customBTN' href="{{ path('app_annuler_sortie', {'id': sortie.id}) }}">Annuler la sortie</a>
                             {% endif %}
                         </td>
