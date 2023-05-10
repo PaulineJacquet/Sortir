@@ -88,7 +88,7 @@ class SortiesController extends AbstractController
         ]);
     }
 
-    #[Route('/sortie/{id}', name: 'app_details', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[Route('/sortie/{id}', name: 'app_details', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function details(int $id, EntityManagerInterface $entityManager): Response
     {
         $sortie = $entityManager->getRepository(Sorties::class)->findOneBy(['id' => $id]);
@@ -98,11 +98,21 @@ class SortiesController extends AbstractController
         ]);
     }
 
-    #[Route('/annulersortie/{id}', name: 'app_annuler_sortie', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function annuler(int $id, EntityManagerInterface $entityManager): Response
+    #[Route('/annulersortie/{id}', name: 'app_annuler_sortie', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
+    public function annuler(int $id, EntityManagerInterface $entityManager,Request $request): Response
     {
         $sortie = $entityManager->getRepository(Sorties::class)->findOneBy(['id' => $id]);
+        $motif = $request->request->filter('motif',null,FILTER_SANITIZE_STRING);
 
+        if(!empty($motif)){
+            $etat = $entityManager->getRepository(Etats::class)->findOneBy(['id' => 6]);
+
+            $sortie->setMotifAnnulation($motif);
+            $sortie->setEtat($etat);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre Sortie a été annulée !');
+        }
         return $this->render('sorties/annuler.html.twig', [
             'sortie'=> $sortie,
         ]);

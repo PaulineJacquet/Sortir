@@ -8,17 +8,28 @@
         <div class="d-flex justify-content-center align-items-center container">
             <div class="col-auto">
                     <h1>Annuler la sortie : {{ sortie.nom }}</h1>
+                    {% for label, messages in app.flashes() %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                     <p>Nom de la sortie : {{ sortie.nom }}</p>
                     <p>Date et heure : {{ sortie.dateHeureDebut|date('d/m/y H:i') }} </p>
                     <p>Ville organisatrice : {{ sortie.site.nom }}</p>
                     <p>Lieu : {{ sortie.lieu.nom }}</p>
                     <form method="post">
                         <label for="motif">Motif d'annulation :</label><br>
-                        <textarea name="motif" id="motif"  rows="5" cols="33"></textarea>
+                        <textarea name="motif" id="motif"  rows="5" cols="33" required {% if sortie.etat.libelle =="Annulée" %} disabled {% endif %} placeholder="{{ sortie.motifAnnulation }}"></textarea>
                         <br><br>
                         <div class="d-flex justify-content-between">
-                            <input type="submit" class="customBTN" value="Enregistrer" name="action">
-                            <a class="customBTN" href="{{ path('app_home') }}">Annuler</a>
+                            {% if sortie.etat.libelle !="Annulée" %}
+                                <input type="submit" class="customBTN" value="Enregistrer" name="action">
+                                <a class="customBTN" href="{{ path('app_home') }}">Annuler</a>
+                            {% else %}
+                                <a class="customBTN" href="{{ path('app_home') }}">Accueil</a>
+                            {% endif %}
                         </div>
                     </form>
             </div>
