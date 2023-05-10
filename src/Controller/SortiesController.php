@@ -93,8 +93,12 @@ class SortiesController extends AbstractController
     {
         $sortie = $entityManager->getRepository(Sorties::class)->findOneBy(['id' => $id]);
 
+        //Récup les participants en fonction de la sortie
+        $participants = $sortie->getParticipe();
+
         return $this->render('sorties/details.html.twig', [
             'sortie'=> $sortie,
+            'participants' => $participants,
         ]);
     }
 
