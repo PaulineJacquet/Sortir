@@ -1,6 +1,6 @@
 /********** Design de boutons custom **********/
 .customBTN {
-    background-color: #00BFA6;
+    background-image: linear-gradient(180deg, rgba(0,191,166,1) 0%, rgba(0,173,146,1) 100%);
     padding: 5px 10px;
     color: #fff;
     text-transform: uppercase;
@@ -12,6 +12,7 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
     transition: .4s;
     text-decoration: none;
+    width: 120px;
 }
 
 .customBTN span:last-child {
@@ -21,11 +22,42 @@
 .customBTN:hover {
     transition: .4s;
     border: 2px solid #00BFA6;
-    background-color: #fff;
+    background-image: none;
     color: #00BFA6;
 }
 
 .customBTN:active {
+    background-color: #87dbd0;
+}
+
+.customBTNred {
+    background-image: linear-gradient(180deg, rgba(233,0,0,1) 50%, rgba(191,0,0,1) 100%);
+    padding: 5px 10px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px solid #e90000;
+    box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
+    transition: .4s;
+    text-decoration: none;
+    width: 120px;
+}
+
+.customBTNred span:last-child {
+    display: none;
+}
+
+.customBTNred:hover {
+    transition: .4s;
+    border: 2px solid #e90000;
+    background-image: none;
+    color: #e90000;
+}
+
+.customBTNred:active {
     background-color: #87dbd0;
 }
 
