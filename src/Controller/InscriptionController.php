@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Inscriptions;
+
 use App\Repository\SortiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
