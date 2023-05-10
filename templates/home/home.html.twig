@@ -39,47 +39,28 @@
                         <td>{{ sortie.nom }}</td>
                         <td>{{ sortie.dateHeureDebut|date('d/m/y H:i') }}</td>
                         <td>{{ sortie.dateLimiteInscription|date('d/m/y') }}</td>
-                        <td>{{ sortie.inscription|length }}/{{ sortie.nbInscriptionMax }}</td>
+                        <td>
+                            {{ sortie.participe|length }}/{{ sortie.nbInscriptionMax }}</td>
                         <td>{{ sortie.etat.libelle }}</td>
                         <td>
-
-                            {% for inscription in inscriptions %}
-                                {% if inscription.participant.id  ==  app.user.id and sortie.id ==inscription.sortie.id %}
+                            {% if sortie.participe.contains(app.user) %}
                                     X
-                                {% endif %}
-                            {% endfor %}
+                            {% endif %}
                         </td>
                         <td> {{ sortie.organisateur.pseudo }}</td>
                         <td>
                             <a class="customBTN" href="{{ path('app_details', {'id': sortie.id}) }}">Afficher</a>
 
 
-                            {% if app.user and sortie.etat.libelle =="Ouverte" %}
-                                {% if inscriptions is empty %}
+                            {% if app.user and sortie.etat.id ==2 %}
+
+                                {% if sortie.participe.contains(app.user) and sortie.dateHeureDebut > ADJ  %}
+                                    <a class="customBTN" id="desinscrire" href="{{ path('app_desinscrire', {'id': sortie.id}) }}">Se désinscrire</a>
+                                {% elseif sortie.dateLimiteInscription > ADJ  %}
                                     <a class="customBTN" id="inscrire" href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
                                 {% endif %}
 
-                                {% for inscription in inscriptions %}
-                                    {# {{ dump(inscription.sortie.id) }} #}
-
-                                    {% if inscription.participant.id  ==  app.user.id and sortie.id == inscription.sortie.id %}
-                                        <a class="customBTN" id="desinscrire" href="{{ path('app_desinscrire', {'id': sortie.id}) }}">Se désinscrire</a>
-                                    {% else %}
-                                        <a class="customBTN" id="inscrire" href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
-                                    {% endif %}
-
-
-                                    {#
-
-                                    {{ dump(inscription.participant.id) }}
-                                    {{ dump(app.user.id) }}
-                                    {{ dump(inscription.sortie.id) }}
-                                    {{ dump(sortie.id) }}
-
-                                    #}
-
-
-                                {% endfor %}
+                                    {# #}
                             {% endif  %}
 
 

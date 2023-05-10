@@ -50,8 +50,8 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Sites $site = null;
 
-    #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Inscriptions::class)]
-    private Collection $inscription;
+    #[ORM\ManyToMany(targetEntity: Sorties::class, inversedBy: 'participe')]
+    private Collection $estInscrit;
 
     // #[ORM\Column]
     //private array $roles;
@@ -60,6 +60,7 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->inscription = new ArrayCollection();
         $this->sorties = new ArrayCollection();
+        $this->estInscrit = new ArrayCollection();
     }
 
     /**
@@ -270,31 +271,25 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Inscriptions>
+     * @return Collection<int, Sorties>
      */
-    public function getInscription(): Collection
+    public function getEstInscrit(): Collection
     {
-        return $this->inscription;
+        return $this->estInscrit;
     }
 
-    public function addInscription(Inscriptions $inscription): self
+    public function addEstInscrit(Sorties $estInscrit): self
     {
-        if (!$this->inscription->contains($inscription)) {
-            $this->inscription->add($inscription);
-            $inscription->setParticipant($this);
+        if (!$this->estInscrit->contains($estInscrit)) {
+            $this->estInscrit->add($estInscrit);
         }
 
         return $this;
     }
 
-    public function removeInscription(Inscriptions $inscription): self
+    public function removeEstInscrit(Sorties $estInscrit): self
     {
-        if ($this->inscription->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getParticipant() === $this) {
-                $inscription->setParticipant(null);
-            }
-        }
+        $this->estInscrit->removeElement($estInscrit);
 
         return $this;
     }
