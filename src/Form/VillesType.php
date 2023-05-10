@@ -7,7 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class SitesType extends AbstractType
+class VillesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -16,6 +16,12 @@ class SitesType extends AbstractType
                 'label' => false,
                 'trim' => true,
                 'required' => true,
+                'empty_data' => '',
+            ])
+            ->add('codePostal', TextType::class, [
+                'label' => false,
+                'trim' => true,
+               'required' => true,
                 'empty_data' => '',
             ])
             ->add('ajouter', SubmitType::class, [
