@@ -19,7 +19,7 @@ class SitesController extends AbstractController
     public function sites(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sitesRepository = $entityManager->getRepository(Sites::class);
-        $sites= $sitesRepository->findAllByID();
+        $sites = $sitesRepository->findAllByID();
 
         $site = new Sites();
         $sitesForm = $this->createForm(SitesType::class, $site);
