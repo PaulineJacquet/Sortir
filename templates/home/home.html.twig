@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ parent() }} - Admin - Sites{% endblock %}
+{% block title %}{{ parent() }} - Home{% endblock %}
 
 {% block h1 %}Liste des sorties{% endblock %}
 
@@ -61,7 +61,7 @@
                             {% if app.user and sortie.etat.id ==2 %}
 
                                 {% if sortie.participe.contains(app.user) and sortie.dateHeureDebut > ADJ  %}
-                                    <a class="customBTN" id="desinscrire" href="{{ path('app_desinscrire', {'id': sortie.id}) }}">Se désinscrire</a>
+                                    <a class="customBTNred" id="desinscrire" href="{{ path('app_desinscrire', {'id': sortie.id}) }}">Se désinscrire</a>
                                 {% elseif sortie.dateLimiteInscription > ADJ  %}
                                     <a class="customBTN" id="inscrire" href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
                                 {% endif %}
@@ -69,16 +69,8 @@
                                     {# #}
                             {% endif  %}
 
-
-
-
-
-
-
-
-
                             {% if (app.user and sortie.organisateur == app.user and sortie.etat.id == 2) or app.user.roles[0] =="ROLE_ADMIN"%}
-                                <a class='customBTN' href="{{ path('app_annuler_sortie', {'id': sortie.id}) }}">Annuler la sortie</a>
+                                <a class='customBTNred' href="{{ path('app_annuler_sortie', {'id': sortie.id}) }}">Annuler la sortie</a>
                             {% endif %}
                         </td>
                     </tr>

@@ -30,6 +30,38 @@
         </div>
     </div>
 
-    <a class="customBTN" href="">Afficher les participants</a>
+
+
+    <div class="container participants">
+
+        {% if participants is not empty %}
+
+            <h2>Liste des participants</h2>
+
+            <div class="tableau_sorties table-responsive">
+                <table class="table table-striped">
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Pseudo</th>
+                            <th scope="col">Nom</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for participant in participants %}
+                        <tr>
+                            <td>{{ participant.pseudo }}</td>
+                            <td>{{ participant.nom }} {{ participant.prenom }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+            <p>Aucun participant inscrit pour le moment.</p>
+        {% endif %}
+    </div>
 
 {% endblock %}
