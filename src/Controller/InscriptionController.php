@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Inscriptions;
+
 use App\Repository\SortiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,6 +42,7 @@ class InscriptionController extends AbstractController
 
             //Validation de la transaction
             $entityManager->flush();
+
         }
 
         return $this->redirectToRoute('app_home');
