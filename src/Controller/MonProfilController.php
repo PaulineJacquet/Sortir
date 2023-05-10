@@ -72,6 +72,7 @@ class MonProfilController extends AbstractController
                 'profil' => $profil
             ]);
         }else{
+            $this->addFlash('warning', 'Accès non autorisé');
             return $this->redirectToRoute('app_home');
         }
     }
