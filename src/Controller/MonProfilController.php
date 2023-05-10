@@ -65,9 +65,6 @@ class MonProfilController extends AbstractController
     #[Route('/profil/{id}', name: 'app_profil', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function profil(int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        if (!isset($_GET)) {
-            return $this->redirectToRoute('app_home');
-        }
         $profil = $entityManager->getRepository(Participants::class)->findOneBy(['id' => $id]);
         return $this->render('mon_profil/Profil.html.twig', [
             'profil' => $profil,

@@ -62,7 +62,7 @@
 
                                 {% if sortie.participe.contains(app.user) and sortie.dateHeureDebut > ADJ  %}
                                     <a class="customBTNred" id="desinscrire" href="{{ path('app_desinscrire', {'id': sortie.id}) }}">Se désinscrire</a>
-                                {% elseif sortie.dateLimiteInscription > ADJ  %}
+                                {% elseif sortie.dateLimiteInscription > ADJ  and sortie.participe|length < sortie.nbInscriptionMax %}
                                     <a class="customBTN" id="inscrire" href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
                                 {% endif %}
 

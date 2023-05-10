@@ -18,7 +18,11 @@
                     <p>Description et infos : {{ sortie.infosSortie }}</p>
                 </div>
                 <div class="col-sm">
+                    {% if (sortie.participe.contains(app.user)) or (app.user.roles[0] =="ROLE_ADMIN") or (sortie.organisateur == app.user)%}
+                    <p>Organisateur : <a id="profil" href="{{ path('app_profil', {'id': sortie.organisateur.id}), 'access': 1 }}">{{ sortie.organisateur.pseudo }}</a></p>
+                    {% else %}
                     <p>Organisateur : {{ sortie.organisateur.pseudo }}</p>
+                    {% endif %}
                     <p>Ville organisatrice : {{ sortie.site.nom }}</p>
                     <p>Lieu : {{ sortie.lieu.nom }}</p>
                     <p>Rue : {{ sortie.lieu.rue }}</p>
@@ -51,8 +55,13 @@
                     <tbody>
                     {% for participant in participants %}
                         <tr>
-                            <td>{{ participant.pseudo }}</td>
-                            <td>{{ participant.nom }} {{ participant.prenom }}</td>
+                            {% if (sortie.participe.contains(app.user)) or (app.user.roles[0] =="ROLE_ADMIN") or (sortie.organisateur == app.user)%}
+                                <td><a id="profil" href="{{ path('app_profil', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
+                                <td>{{ participant.nom }} {{ participant.prenom }}</td>
+                            {% else %}
+                                <td>{{ participant.pseudo }}</td>
+                                <td>{{ participant.nom }} {{ participant.prenom }}</td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -62,6 +71,7 @@
         {% else %}
             <p>Aucun participant inscrit pour le moment.</p>
         {% endif %}
+        <a class="customBTN" href="{{ path('app_home') }}">Accueil</a>
     </div>
 
 {% endblock %}
