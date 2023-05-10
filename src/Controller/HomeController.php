@@ -25,7 +25,8 @@ class HomeController extends AbstractController
         $filtresForm = $this->createForm(SortiesFilterType::class);
         $filtresForm->handleRequest($request);
 
-        $inscriptions=$entityManager->getRepository(Inscriptions::class)->findAll();
+        $dateStr=date('Y-m-d');
+        $date=new \DateTime($dateStr);
 
         if ($filtresForm->isSubmitted() && $filtresForm->isValid()) {
             $filtres = $filtresForm->getData();
@@ -34,7 +35,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/home.html.twig', [
             'sorties' => $sorties,
-            'inscriptions'=>$inscriptions,
+            'ADJ'=>$date,
             'filtresForm' => $filtresForm->createView(),
         ]);
     }

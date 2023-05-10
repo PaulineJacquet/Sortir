@@ -54,12 +54,13 @@ class Sorties
     #[ORM\JoinColumn(nullable: false)]
     private ?Sites $site = null;
 
-    #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscriptions::class)]
-    private Collection $inscription;
+    #[ORM\ManyToMany(targetEntity: Participants::class, mappedBy: 'estInscrit')]
+    private Collection $participe;
 
     public function __construct()
     {
         $this->inscription = new ArrayCollection();
+        $this->participe = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,31 +212,29 @@ class Sorties
         return $this;
     }
 
+
     /**
-     * @return Collection<int, Inscriptions>
+     * @return Collection<int, Participants>
      */
-    public function getInscription(): Collection
+    public function getParticipe(): Collection
     {
-        return $this->inscription;
+        return $this->participe;
     }
 
-    public function addInscription(Inscriptions $inscription): self
+    public function addParticipe(Participants $participe): self
     {
-        if (!$this->inscription->contains($inscription)) {
-            $this->inscription->add($inscription);
-            $inscription->setSortie($this);
+        if (!$this->participe->contains($participe)) {
+            $this->participe->add($participe);
+            $participe->addEstInscrit($this);
         }
 
         return $this;
     }
 
-    public function removeInscription(Inscriptions $inscription): self
+    public function removeParticipe(Participants $participe): self
     {
-        if ($this->inscription->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getSortie() === $this) {
-                $inscription->setSortie(null);
-            }
+        if ($this->participe->removeElement($participe)) {
+            $participe->removeEstInscrit($this);
         }
 
         return $this;

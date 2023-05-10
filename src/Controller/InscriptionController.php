@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Inscriptions;
-use App\Entity\Sorties;
+use App\Repository\SortiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,43 +21,52 @@ class InscriptionController extends AbstractController
     }
 
     #[Route('/inscrire/{id}', name: 'app_inscrire', requirements: ['id' => '\d+'])]
-    public function inscrire(int $id,Request $request,EntityManagerInterface $entityManager): Response
+    public function inscrire(int $id,EntityManagerInterface $entityManager,SortiesRepository $Srepo): Response
     {
-        $inscription=new Inscriptions();
+        $sortie=$Srepo->findOneBy(['id'=>$id]);
+        $user=$this->getUser();
 
-        $sortie=$entityManager->getRepository(Sorties::class)->findOneBy(['id'=>$id]);
-
-        $inscription->setSortie($sortie);//id le la sortie sur laquelle on clique
-        $inscription->setParticipant($this->getUser());
+        //verifiez les conditions d'insertions
 
         $dateStr=date('Y-m-d');
         $date=new \DateTime($dateStr);
-        //dd($date);
 
-        $inscription->setDateInscription($date);
+        //il faut que la sortie est étét publé = etat=ouverte
+        if($sortie->getEtat()->getId()==2 and $sortie->getDateLimiteInscription()>$date){
 
-        $entityManager->persist($inscription);
+            $sortie->addParticipe($user);
+            $user->addEstInscrit($sortie);
 
-        //Validation de la transaction
-        $entityManager->flush();
+            $entityManager->persist($sortie);
+            $entityManager->persist($user);
+
+            //Validation de la transaction
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('app_home');
     }
 
     #[Route('/desinscrire/{id}', name: 'app_desinscrire', requirements: ['id' => '\d+'])]
-    public function Desinscrire(int $id,Request $request,EntityManagerInterface $entityManager): Response
+    public function Desinscrire(int $id,Request $request,EntityManagerInterface $entityManager, SortiesRepository $Srepo): Response
     {
-        $sortie=$entityManager->getRepository(Sorties::class)->findOneBy(['id'=>$id]);
+        $sortie=$Srepo->findOneBy(['id'=>$id]);
 
         $user=$this->getUser();
 
-       // $inscription=$entityManager->getRepository(Inscriptions::class)->findOneBy(['sortie.id'=>$sortie->getId(),'user.id'=>$user->getId()]);
-        $inscription=$entityManager->getRepository(Inscriptions::class)->findOneBySortieAndParticipant($sortie->getId(),$user->getId());
+        $dateStr=date('Y-m-d');
+        $date=new \DateTime($dateStr);
 
-        $entityManager->remove($inscription);
+        if($sortie->getDateLimiteInscription()>$date){
+            $sortie->removeParticipe($user);
+            $user->removeEstInscrit($sortie);
 
-        //Validation de la transaction
-        $entityManager->flush();
+            $entityManager->persist($sortie);
+            $entityManager->persist($user);
+
+            //Validation de la transaction
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('app_home');
     }
