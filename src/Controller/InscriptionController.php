@@ -42,6 +42,7 @@ class InscriptionController extends AbstractController
 
             //Validation de la transaction
             $entityManager->flush();
+
         }
 
         return $this->redirectToRoute('app_home');
