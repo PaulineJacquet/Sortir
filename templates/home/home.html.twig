@@ -5,18 +5,31 @@
 {% block h1 %}Liste des sorties{% endblock %}
 
 {% block body %}
-
+    {% form_theme filtresForm 'bootstrap_5_layout.html.twig' %}
     {{ form_start(filtresForm) }}
-
-        {{ form_row(filtresForm.site) }}
-        {{ form_row(filtresForm.dateDebut) }}
-        {{ form_row(filtresForm.dateFin) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(filtresForm.site) }}
+            {{ form_row(filtresForm.dateDebut) }}
+            {{ form_row(filtresForm.dateFin)}}
+        </div>
+        <div class="col">
         {{ form_row(filtresForm.organisateur) }}
         {{ form_row(filtresForm.inscrit) }}
         {{ form_row(filtresForm.nonInscrit) }}
         {{ form_row(filtresForm.passees, {'label': 'Sorties passées', 'attr': {'checked': false}}) }}
+            {{ form_end(filtresForm) }}
+        </div>
+    </div>
 
-    {{ form_end(filtresForm) }}
+    {% for label, messages in app.flashes() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
 
     <div class="tableau_sorties table-responsive">
         <table class="table table-striped">
@@ -57,6 +70,9 @@
                         <td>
                             <a class="customBTN" href="{{ path('app_details', {'id': sortie.id}) }}">Afficher</a>
 
+                            {% if ((app.user and sortie.organisateur == app.user) or app.user.roles[0] =="ROLE_ADMIN") and sortie.etat.id ==1%}
+                                <a class="customBTN" id="publier" href="{{ path('app_publier', {'id': sortie.id}) }}">Publier</a>
+                            {% endif %}
 
                             {% if app.user and sortie.etat.id ==2 %}
 
@@ -77,14 +93,7 @@
             </tbody>
         </table>
     </div>
-
-    {% if app.user %}
         <a class="customBTN" href="{{ path('app_sorties') }}">Créer une sortie</a>
-    {% else %}
-        {# Si l'utilisateur n'est pas connecté, rediriger vers la page de login #}
-        <a class="customBTN" href="{{ path('app_login') }}">Créer une sortie</a>
-    {% endif %}
-
 {% endblock %}
 
 {% block script %}
