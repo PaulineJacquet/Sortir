@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participants;
+use App\Entity\Sorties;
 use App\Form\MdpType;
 use App\Form\MonProfilType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -59,6 +60,14 @@ class MonProfilController extends AbstractController
 
         return $this->render('mon_profil/Password.html.twig', [
            'formMdp' => $form->createView(),
+        ]);
+    }
+    #[Route('/profil/{id}', name: 'app_profil', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function profil(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $profil = $entityManager->getRepository(Participants::class)->findOneBy(['id' => $id]);
+        return $this->render('mon_profil/Profil.html.twig', [
+            'profil' => $profil,
         ]);
     }
 
