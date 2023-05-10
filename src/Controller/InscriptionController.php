@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Inscriptions;
+
 use App\Repository\SortiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +32,7 @@ class InscriptionController extends AbstractController
         $date=new \DateTime($dateStr);
 
         //il faut que la sortie est étét publé = etat=ouverte
-        if($sortie->getEtat()->getId()==2 and $sortie->getDateLimiteInscription()>$date){
+        if($sortie->getEtat()->getId()==2 and $sortie->getDateLimiteInscription()>$date and $sortie->getNbInscriptionMax() > count($sortie->getParticipe())){
 
             $sortie->addParticipe($user);
             $user->addEstInscrit($sortie);
@@ -42,6 +42,7 @@ class InscriptionController extends AbstractController
 
             //Validation de la transaction
             $entityManager->flush();
+
         }
 
         return $this->redirectToRoute('app_home');
@@ -57,7 +58,7 @@ class InscriptionController extends AbstractController
         $dateStr=date('Y-m-d');
         $date=new \DateTime($dateStr);
 
-        if($sortie->getDateLimiteInscription()>$date){
+        if ($sortie->getDateLimiteInscription() > $date){
             $sortie->removeParticipe($user);
             $user->removeEstInscrit($sortie);
 

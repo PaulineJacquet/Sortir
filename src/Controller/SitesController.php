@@ -5,11 +5,12 @@ namespace App\Controller;
 use App\Entity\Sites;
 use App\Form\SitesType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin/', name: 'app_admin_')]
 class SitesController extends AbstractController
 {
@@ -18,7 +19,7 @@ class SitesController extends AbstractController
     public function sites(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sitesRepository = $entityManager->getRepository(Sites::class);
-        $sites= $sitesRepository->findAllByID();
+        $sites = $sitesRepository->findAllByID();
 
         $site = new Sites();
         $sitesForm = $this->createForm(SitesType::class, $site);

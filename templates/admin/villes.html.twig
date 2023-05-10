@@ -1,8 +1,8 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ parent() }} / Admin - Sites{% endblock %}
+{% block title %}{{ parent() }} / Admin - Villes{% endblock %}
 
-{% block h1 %}Gestion des sites{% endblock %}
+{% block h1 %}Gestion des villes{% endblock %}
 
 {% block body %}
 
@@ -19,30 +19,33 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">Site</th>
+                <th scope="col">Ville</th>
+                <th scope="col">Code postal</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            {% for site in sites %}
+            {% for ville in villes %}
                 <tr>
-                    <td>{{ site.nom }}</td>
+                    <td>{{ ville.nom }}</td>
+                    <td>{{ ville.codePostal }}</td>
                     <td>
-                        <form action="{{ path('app_admin_sites') }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer {{ site.nom }} ?')">
-                            <input type="hidden" name="delete" value="{{ site.id }}" />
+                        <form action="{{ path('app_admin_villes') }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer {{ ville.nom }} ?')">
+                            <input type="hidden" name="delete" value="{{ ville.id }}" />
                             <button type="submit" class="customBTNred">Supprimer</button>
                         </form>
                     </td>
                 </tr>
             {% endfor %}
-            {{ form_start(sitesForm) }}
-                <tr>
-                    <td>{{ form_widget(sitesForm.nom) }}</td>
-                    <td>
-                        {{ form_widget(sitesForm.ajouter) }}
-                    </td>
-                </tr>
-            {{ form_end(sitesForm) }}
+            {{ form_start(villesForm) }}
+            <tr>
+                <td>{{ form_widget(villesForm.nom) }}</td>
+                <td>{{ form_widget(villesForm.codePostal) }}</td>
+                <td>
+                    {{ form_widget(villesForm.ajouter) }}
+                </td>
+            </tr>
+            {{ form_end(villesForm) }}
             </tbody>
         </table>
     </div>

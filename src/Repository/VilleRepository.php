@@ -39,6 +39,14 @@ class VilleRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllByID(): array
+    {
+        return $this->createQueryBuilder('ville')
+            ->orderBy('ville.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Ville[] Returns an array of Ville objects
 //     */

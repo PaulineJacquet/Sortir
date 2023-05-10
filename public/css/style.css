@@ -57,7 +57,7 @@
 }
 
 .customBTNred:active {
-    background-color: #87dbd0;
+    background-color: #ffcdcd;
 }
 
 
@@ -111,5 +111,8 @@ footer {
     background-color: #2d2d2d;
 }
 
+.participants {
+    text-align: center;
+}
 
 
