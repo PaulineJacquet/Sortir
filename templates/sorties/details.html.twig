@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-sm">
                     {% if (sortie.participe.contains(app.user)) or (app.user.roles[0] =="ROLE_ADMIN") or (sortie.organisateur == app.user)%}
-                    <p>Organisateur : <a id="profil" href="{{ path('app_profil', {'id': sortie.organisateur.id}), 'access': 1 }}">{{ sortie.organisateur.pseudo }}</a></p>
+                    <p>Organisateur : <a id="profil" href="{{ path('app_profil', {'id': sortie.organisateur.id})}}">{{ sortie.organisateur.pseudo }}</a></p>
                     {% else %}
                     <p>Organisateur : {{ sortie.organisateur.pseudo }}</p>
                     {% endif %}
