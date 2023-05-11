@@ -19,12 +19,15 @@
                 </div>
                 <div class="col-sm">
                     {% if (sortie.participe.contains(app.user)) or (app.user.roles[0] =="ROLE_ADMIN") or (sortie.organisateur == app.user)%}
-                        <p>Organisateur :
-                        <form action="{{ path('app_profil') }}" method="POST">
-                            <input type="hidden" name="id" value="{{ sortie.organisateur.id }}" />
-                            <button type="submit" class="btn btn-link" >{{ sortie.organisateur.pseudo }}</button>
-                        </form>
-                        </p>
+                        <div class="organisateur">
+                            <p class="orga">Organisateur :</p>
+                            <p>
+                                <form action="{{ path('app_profil') }}" method="POST" class="organisateur_display">
+                                    <input type="hidden" name="id" value="{{ sortie.organisateur.id }}" />
+                                    <button type="submit" class="btn btn-link" >{{ sortie.organisateur.pseudo }}</button>
+                                </form>
+                            </p>
+                        </div>
                     {% else %}
                     <p>Organisateur : {{ sortie.organisateur.pseudo }}</p>
                     {% endif %}
@@ -38,7 +41,6 @@
             </div>
         </div>
     </div>
-
 
 
     <div class="container participants">
