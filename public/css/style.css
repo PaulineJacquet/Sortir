@@ -119,3 +119,7 @@ footer {
 .participants_form_input > td > input {
     width: 100px;
 }
+
+.h1_title {
+    text-align: center;
+}
