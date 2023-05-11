@@ -81,7 +81,7 @@
                                 <a class='customBTN' href="{{ path('app_modifier_sortie', {'id': sortie.id}) }}">Modifier la sortie</a>
                             {% endif %}
 
-                            {% if app.user and sortie.etat.id ==2 %}
+                            {% if app.user and (sortie.etat.id ==2 or sortie.etat.id ==3)%}
 
                                 {% if sortie.participe.contains(app.user) and sortie.dateHeureDebut > ADJ  %}
                                     <a class="customBTNred" id="desinscrire" href="{{ path('app_desinscrire', {'id': sortie.id}) }}">Se désinscrire</a>
