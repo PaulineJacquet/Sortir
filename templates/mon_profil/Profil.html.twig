@@ -2,10 +2,11 @@
 
 {% block title %}{{ parent() }} - Profil {{ profil.pseudo }}{% endblock %}
 
+{% block h1 %}{{ profil.pseudo }}{% endblock %}
+
 {% block body %}
     <div class="d-flex justify-content-center align-items-center container">
         <div class="col-auto">
-            <h1>{{ profil.pseudo }}</h1>
             {% for type, messages in app.session.flashbag.all() %}
                 {% for message in messages %}
                     <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
@@ -19,7 +20,9 @@
             <p>Téléphone: {{ profil.telephone }}</p>
             <p>Email : {{ profil.mail }}</p>
             <p>Ville de rattachement : {{ profil.site.nom }}</p>
-            <a class="customBTN" href="{{ path('app_home') }}">Retour</a>
+            <div class="text-center">
+                <a class="customBTN" href="{{ path('app_home') }}">Retour</a>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -159,3 +159,6 @@ td {
     text-align: center;
     vertical-align: middle;
 }
+.buttoninline{
+    display: inline;
+}
