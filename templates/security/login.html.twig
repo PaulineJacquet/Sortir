@@ -3,36 +3,38 @@
 {% block title %}{{ parent() }} - Se connecter{% endblock %}
 
 {% block body %}
-<form method="post">
+    <div class="d-flex justify-content-center align-items-center container">
+        <form method="post">
 
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Connectez-vous :</h1>
-    <label for="inputPseudo">Pseudo ou Email</label>
-    <input type="text" value="{{ last_username }}" name="pseudo" id="inputPseudo" class="form-control" autocomplete="username" required autofocus {% if app.user %} disabled {% endif %}>
-    <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required {% if app.user %} disabled {% endif %}>
+        <h1 class="h3 mb-3 font-weight-normal">Connectez-vous :</h1>
+        <label for="inputPseudo">Pseudo ou Email</label>
+        <input type="text" value="{{ last_username }}" name="pseudo" id="inputPseudo" class="form-control" autocomplete="username" required autofocus {% if app.user %} disabled {% endif %}>
+        <label for="inputPassword">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required {% if app.user %} disabled {% endif %}>
 
-    {% if app.user %}
-        <div class="mb-3">
-            Vous êtes déjà connecté en tant que {{ app.user.userIdentifier }} : <a href="{{ path('app_logout') }}">Se déconnecter</a>
-        </div>
-    {% endif %}
+        {% if app.user %}
+            <div class="mb-3">
+                Vous êtes déjà connecté en tant que {{ app.user.userIdentifier }} : <a href="{{ path('app_logout') }}">Se déconnecter</a>
+            </div>
+        {% endif %}
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me" {% if app.request.cookies.get('REMEMBERME') %} checked {% endif %}> Se souvenir de moi
-            </label>
-        </div>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me" {% if app.request.cookies.get('REMEMBERME') %} checked {% endif %}> Se souvenir de moi
+                </label>
+            </div>
 
-    <button class=customBTN type="submit"{% if app.user %} disabled {% endif %}>
-        Se connecter
-    </button>
-</form>
+        <button class=customBTN type="submit"{% if app.user %} disabled {% endif %}>
+            Se connecter
+        </button>
+        </form>
+    </div>
 {% endblock %}
