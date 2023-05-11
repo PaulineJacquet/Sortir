@@ -123,3 +123,8 @@ footer {
 .h1_title {
     text-align: center;
 }
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}
