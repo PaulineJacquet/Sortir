@@ -3,7 +3,6 @@
     background-color: rgba(0,191,166,1);
     padding: 5px 10px;
     color: #fff;
-    text-transform: uppercase;
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
@@ -12,6 +11,7 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
     transition: .4s;
     text-decoration: none;
+    min-width: 125px;
 }
 
 .customBTN span:last-child {
@@ -33,7 +33,6 @@
     background-color: rgba(233,0,0,1);
     padding: 5px 10px;
     color: #fff;
-    text-transform: uppercase;
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
@@ -42,7 +41,7 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
     transition: .4s;
     text-decoration: none;
-    width: 120px;
+    min-width: 125px;
 }
 
 .customBTNred span:last-child {
@@ -64,7 +63,6 @@
     background-color: rgb(250, 184, 84);
     padding: 5px 10px;
     color: #fff;
-    text-transform: uppercase;
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
@@ -73,7 +71,7 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
     transition: .4s;
     text-decoration: none;
-    width: 120px;
+    min-width: 120px;
 }
 
 .customBTNyellow span:last-child {
