@@ -159,3 +159,16 @@ td {
     text-align: center;
     vertical-align: middle;
 }
+
+.organisateur {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    vertical-align: center;
+}
+
+.orga {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
