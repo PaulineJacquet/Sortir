@@ -65,10 +65,7 @@
                                 {% elseif sortie.dateLimiteInscription > ADJ  and sortie.participe|length < sortie.nbInscriptionMax %}
                                     <a class="customBTN" id="inscrire" href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
                                 {% endif %}
-
-                                    {# #}
                             {% endif  %}
-
                             {% if (app.user and sortie.organisateur == app.user and sortie.etat.id == 2) or app.user.roles[0] =="ROLE_ADMIN"%}
                                 <a class='customBTNred' href="{{ path('app_annuler_sortie', {'id': sortie.id}) }}">Annuler la sortie</a>
                             {% endif %}
