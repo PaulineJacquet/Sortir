@@ -115,4 +115,7 @@ footer {
     text-align: center;
 }
 
-
+/********** ADMIN GESTION PARTICIPANTS - Formulaire **********/
+.participants_form_input > td > input {
+    width: 100px;
+}
