@@ -5,16 +5,14 @@ namespace App\Form;
 use App\Entity\Participants;
 use App\Entity\Sites;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Validator\Constraints\File;
 
 class MonProfilType extends AbstractType
 {
@@ -58,8 +56,15 @@ class MonProfilType extends AbstractType
             ])
             ->add('photo',FileType::class, [
                 'label' => 'Ma photo',
-                'mapped' => false,
+                'mapped'=>false,
                 'required' => false,
+                'constraints'=>[
+                    new File([
+                        'maxSize'=>'1024k',
+
+                        //restreindre sur le type de fichier qui peut être uploader
+                    ])
+                ],
             ])
         ;
     }

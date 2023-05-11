@@ -22,6 +22,10 @@
             {{ form_row(formProfil.telephone) }}
             {{ form_row(formProfil.mail) }}
             {{ form_row(formProfil.site) }}
+            <div>
+                <img clas=''src="{{ asset('photo/') ~ app.user.photo }}">
+                
+            </div>
             {{ form_row(formProfil.photo) }}
             <div class="text-center">
                 <input type="submit" class="customBTN d-inline-block" value="Modifier">
