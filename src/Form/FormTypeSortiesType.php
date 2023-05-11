@@ -38,7 +38,8 @@ class FormTypeSortiesType extends AbstractType
         ]);
 
         $builder->add('duree',IntegerType::class,[
-            'label'=>'Durée de la sortie  '
+            'label'=>'Durée de la sortie  ',
+            'attr'=>['placeholder'=>' la durée de votre sortie en heures'],
 
         ]);
 
