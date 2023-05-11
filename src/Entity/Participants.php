@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[UniqueEntity(fields: ['mail'], message: 'Un compte avec cet email existe déjà !')]
 #[UniqueEntity(fields: ['pseudo'], message: 'Un compte avec ce pseudo existe déjà !')]
@@ -44,6 +45,9 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $actif = null;
 
+    #[ORM\Column]
+    private ?string $photo=null;
+
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sorties::class)]
     private Collection $sorties;
 
@@ -62,6 +66,9 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
         $this->inscription = new ArrayCollection();
         $this->sorties = new ArrayCollection();
         $this->estInscrit = new ArrayCollection();
+        if($this->getPhoto()===null){
+            $this->setPhoto('avatar.jpg');
+        }
     }
 
     /**
@@ -293,6 +300,16 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
         $this->estInscrit->removeElement($estInscrit);
 
         return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): void
+    {
+        $this->photo = $photo;
     }
 
 

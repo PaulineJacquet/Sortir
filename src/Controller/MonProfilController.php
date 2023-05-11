@@ -27,6 +27,20 @@ class MonProfilController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('photo')->getData()!=null){
+                $fileName=$form->get('photo')->getData();
+                //encoder la photo
+                $fileNameEncrypted=md5(uniqid()).'.'.$fileName->guessExtension();
+
+                //déplacer le fichierencrypté dans le dossier des images
+                $fileName->move($this->getParameter('user_photo_directory'),$fileNameEncrypted);
+
+                //hydrater la photo dans l'objet participant
+                $participant->setPhoto($fileNameEncrypted);
+
+            }
+            $entityManager->persist($participant);
+
             $entityManager->flush();
             $this->addFlash('success', 'Le profil a été modifié avec succès !');
             return $this->redirectToRoute('app_mon_profil');
