@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortiesRepository::class)]
 class Sorties
@@ -19,12 +20,14 @@ class Sorties
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
+    #[Assert\GreaterThan('now')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $duree = null;
 
+    #[Assert\LessThan(propertyPath: 'dateHeureDebut')]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
