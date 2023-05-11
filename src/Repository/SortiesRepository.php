@@ -80,14 +80,18 @@ class SortiesRepository extends ServiceEntityRepository
         }
 
         if (!empty($filtres['inscrit'])) {
-            $qb->innerJoin('s.inscription', 'i')
-                ->andWhere('i.participant = :participant')
+            $qb->innerJoin('s.participe', 'p')
+                ->andWhere('p = :participant')
                 ->setParameter('participant', $this->security->getUser());
         }
 
         if (!empty($filtres['nonInscrit'])) {
-            $qb->leftJoin('s.inscription', 'i', Join::WITH, 'i.participant = :participant')
-                ->andWhere('i.id IS NULL')
+            $qb->andWhere('s NOT IN (
+            SELECT s2
+            FROM App\Entity\Sorties s2
+            INNER JOIN s2.participe p2
+            WHERE p2 = :participant
+        )')
                 ->setParameter('participant', $this->security->getUser());
         }
 

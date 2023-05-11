@@ -19,18 +19,18 @@
     <div class="tableau_sorties table-responsive">
         <table class="table table-striped">
             <thead>
-            <tr class="tab_participants">
-                <th scope="col">Pseudo</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Prénom</th>
-                <th scope="col">Téléphone</th>
-                <th scope="col">Mail</th>
-                <th scope="col">Mot de passe</th>
-                <th scope="col">Admin</th>
-                <th scope="col">Actif</th>
-                <th scope="col">Site</th>
-                <th scope="col">Actions</th>
-            </tr>
+                <tr class="tab_participants">
+                    <th scope="col">Pseudo</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Mail</th>
+                    <th scope="col">Mot de passe</th>
+                    <th scope="col">Admin</th>
+                    <th scope="col">Actif</th>
+                    <th scope="col">Site</th>
+                    <th scope="col">Actions</th>
+                </tr>
             </thead>
             <tbody>
             {% for participant in participants %}
@@ -53,9 +53,9 @@
                 </tr>
             {% endfor %}
 
-            {#
+
             {{ form_start(participantsForm) }}
-                <tr>
+                <tr class="participants_form_input">
                     <td>{{ form_widget(participantsForm.pseudo) }}</td>
                     <td>{{ form_widget(participantsForm.nom) }}</td>
                     <td>{{ form_widget(participantsForm.prenom) }}</td>
@@ -64,11 +64,10 @@
                     <td>{{ form_widget(participantsForm.password) }}</td>
                     <td>{{ form_widget(participantsForm.administrateur) }}</td>
                     <td>{{ form_widget(participantsForm.actif) }}</td>
-                    <td>{{ form_widget(participantsForm.site) }}</td>
+                    <td>{{ form_widget(participantsForm.site, {'attr': {'class': 'form-control'}}) }}</td>
                     <td>{{ form_widget(participantsForm.ajouter) }}</td>
                 </tr>
-            {{ form_end(participantsForm) }}}
-            #}
+            {{ form_end(participantsForm) }}
 
             </tbody>
         </table>

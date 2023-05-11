@@ -2,12 +2,15 @@
 
 namespace App\Form;
 
+use App\Entity\Participants;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParticipantsType extends AbstractType
 {
@@ -59,14 +62,27 @@ class ParticipantsType extends AbstractType
                 'label' => false,
                 'required' => false,
             ])
-            ->add('site', IntegerType::class, [
-                'label' => false,
+            ->add('site', ChoiceType::class, [
+                'choices' => $options['sites'],
+                'choice_label' => function ($site) {
+                    return $site->getNom();
+                },
+                'placeholder' => 'Sélectionnez un site',
                 'required' => true,
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('ajouter', SubmitType::class, [
                 'label' => 'Ajouter',
                 'attr' => ['class' => 'customBTN']
             ]);
+    }
+
+    public function configureOptions(\Symfony\Component\OptionsResolver\OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Participants::class,
+            'sites' => [],
+        ]);
     }
 
 }

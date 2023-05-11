@@ -1,13 +1,13 @@
 /********** Design de boutons custom **********/
 .customBTN {
-    background-image: linear-gradient(180deg, rgba(0,191,166,1) 0%, rgba(0,173,146,1) 100%);
+    background-color: rgba(0,191,166,1);
     padding: 5px 10px;
     color: #fff;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 2px solid #00BFA6;
     box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
     transition: .4s;
@@ -21,7 +21,7 @@
 .customBTN:hover {
     transition: .4s;
     border: 2px solid #00BFA6;
-    background-image: none;
+    background-color: #fff;
     color: #00BFA6;
 }
 
@@ -30,14 +30,14 @@
 }
 
 .customBTNred {
-    background-image: linear-gradient(180deg, rgba(233,0,0,1) 50%, rgba(191,0,0,1) 100%);
+    background-color: rgba(233,0,0,1);
     padding: 5px 10px;
     color: #fff;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 2px solid #e90000;
     box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
     transition: .4s;
@@ -52,12 +52,43 @@
 .customBTNred:hover {
     transition: .4s;
     border: 2px solid #e90000;
-    background-image: none;
+    background-color: #fff;
     color: #e90000;
 }
 
 .customBTNred:active {
     background-color: #ffcdcd;
+}
+
+.customBTNyellow{
+    background-color: rgb(250, 184, 84);
+    padding: 5px 10px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid rgb(250, 184, 84);
+    box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
+    transition: .4s;
+    text-decoration: none;
+    width: 120px;
+}
+
+.customBTNyellow span:last-child {
+    display: none;
+}
+
+.customBTNyellow:hover {
+    transition: .4s;
+    border: 2px solid rgb(250, 184, 84);
+    background-color: #fff;
+    color: rgb(250, 184, 84);
+}
+
+.customBTNyellow:active {
+    background-color: rgb(255, 225, 187);
 }
 
 
@@ -115,4 +146,16 @@ footer {
     text-align: center;
 }
 
+/********** ADMIN GESTION PARTICIPANTS - Formulaire **********/
+.participants_form_input > td > input {
+    width: 100px;
+}
 
+.h1_title {
+    text-align: center;
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}

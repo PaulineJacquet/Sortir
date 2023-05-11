@@ -14,13 +14,16 @@
             {{ form_row(filtresForm.dateFin)}}
         </div>
         <div class="col">
-        {{ form_row(filtresForm.organisateur) }}
-        {{ form_row(filtresForm.inscrit) }}
-        {{ form_row(filtresForm.nonInscrit) }}
-        {{ form_row(filtresForm.passees, {'label': 'Sorties passées', 'attr': {'checked': false}}) }}
+            <br><br>
+            {{ form_row(filtresForm.organisateur) }}
+            {{ form_row(filtresForm.inscrit) }}
+            {{ form_row(filtresForm.nonInscrit) }}
+            {{ form_row(filtresForm.passees, {'label': 'Sorties passées', 'attr': {'checked': false}}) }}
             {{ form_end(filtresForm) }}
         </div>
     </div>
+
+    <br><br><br>
 
     {% for type, messages in app.session.flashbag.all() %}
         {% for message in messages %}
@@ -75,6 +78,7 @@
 
                             {% if ((app.user and sortie.organisateur == app.user) or app.user.roles[0] =="ROLE_ADMIN") and sortie.etat.id ==1%}
                                 <a class="customBTN" id="publier" href="{{ path('app_publier', {'id': sortie.id}) }}">Publier</a>
+                                <a class='customBTN' href="{{ path('app_modifier_sortie', {'id': sortie.id}) }}">Modifier la sortie</a>
                             {% endif %}
 
                             {% if app.user and sortie.etat.id ==2 %}
