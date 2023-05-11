@@ -58,17 +58,16 @@
     </div>
     <div class="container">
         <div class="row">
+            <div class="text-center">
+                <input type="submit" class="customBTN d-inline-block" value="Enregistrer" name="action">
 
-            <div class="col">
-                <input type="submit" class="customBTN" value="Enregistrer" name="action">
+
+                <input type="submit" class="customBTN d-inline-block" value="Publier" name="action">
+
+
+                <button onclick="location.href='{{ path('app_home') }}'" class="customBTNred d-inline-block" name="action">Annuler</button>
             </div>
-            <div class="col">
-                <input type="submit" class="customBTN" value="Publier" name="action">
-            </div>
-            <div class="col">
-                <button onclick="location.href='{{ path('app_home') }}'" class='customBTNred' name="action">Annuler</button>
-            </div>
-            </div>
+        </div>
     </div>
 
     {{ form_end(formSortie) }}

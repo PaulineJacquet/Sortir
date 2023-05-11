@@ -19,7 +19,12 @@
                 </div>
                 <div class="col-sm">
                     {% if (sortie.participe.contains(app.user)) or (app.user.roles[0] =="ROLE_ADMIN") or (sortie.organisateur == app.user)%}
-                    <p>Organisateur : <a id="profil" href="{{ path('app_profil', {'id': sortie.organisateur.id}), 'access': 1 }}">{{ sortie.organisateur.pseudo }}</a></p>
+                        <p>Organisateur :
+                        <form action="{{ path('app_profil') }}" method="POST">
+                            <input type="hidden" name="id" value="{{ sortie.organisateur.id }}" />
+                            <button type="submit" class="btn btn-link" >{{ sortie.organisateur.pseudo }}</button>
+                        </form>
+                        </p>
                     {% else %}
                     <p>Organisateur : {{ sortie.organisateur.pseudo }}</p>
                     {% endif %}
@@ -56,7 +61,13 @@
                     {% for participant in participants %}
                         <tr>
                             {% if (sortie.participe.contains(app.user)) or (app.user.roles[0] =="ROLE_ADMIN") or (sortie.organisateur == app.user)%}
-                                <td><a id="profil" href="{{ path('app_profil', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
+
+                                <td>
+                                    <form action="{{ path('app_profil') }}" method="POST">
+                                        <input type="hidden" name="id" value="{{ participant.id }}" />
+                                        <button type="submit" class="btn btn-link" >{{ participant.pseudo }}</button>
+                                    </form>
+                                </td>
                                 <td>{{ participant.nom }} {{ participant.prenom }}</td>
                             {% else %}
                                 <td>{{ participant.pseudo }}</td>

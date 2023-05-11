@@ -5,11 +5,12 @@ namespace App\Controller;
 
 use App\Repository\SortiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+#[IsGranted('ROLE_USER')]
 class InscriptionController extends AbstractController
 {
     #[Route('/inscription', name: 'app_inscription')]

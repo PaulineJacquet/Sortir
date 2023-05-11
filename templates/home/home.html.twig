@@ -5,18 +5,31 @@
 {% block h1 %}Liste des sorties{% endblock %}
 
 {% block body %}
-
+    {% form_theme filtresForm 'bootstrap_5_layout.html.twig' %}
     {{ form_start(filtresForm) }}
-
-        {{ form_row(filtresForm.site) }}
-        {{ form_row(filtresForm.dateDebut) }}
-        {{ form_row(filtresForm.dateFin) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(filtresForm.site) }}
+            {{ form_row(filtresForm.dateDebut) }}
+            {{ form_row(filtresForm.dateFin)}}
+        </div>
+        <div class="col">
         {{ form_row(filtresForm.organisateur) }}
         {{ form_row(filtresForm.inscrit) }}
         {{ form_row(filtresForm.nonInscrit) }}
         {{ form_row(filtresForm.passees, {'label': 'Sorties passées', 'attr': {'checked': false}}) }}
+            {{ form_end(filtresForm) }}
+        </div>
+    </div>
 
-    {{ form_end(filtresForm) }}
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
 
     <div class="tableau_sorties table-responsive">
         <table class="table table-striped">
@@ -49,7 +62,10 @@
                         </td>
                         <td>
                             {% if (sortie.participe.contains(app.user)) or (app.user.roles[0] =="ROLE_ADMIN") or (sortie.organisateur == app.user)%}
-                                <a id="profil" href="{{ path('app_profil', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a>
+                                <form action="{{ path('app_profil') }}" method="POST">
+                                    <input type="hidden" name="id" value="{{ sortie.organisateur.id }}" />
+                                    <button type="submit" class="btn btn-link" >{{ sortie.organisateur.pseudo }}</button>
+                                </form>
                             {% else %}
                                 {{ sortie.organisateur.pseudo }}
                             {% endif %}
@@ -57,6 +73,9 @@
                         <td>
                             <a class="customBTN" href="{{ path('app_details', {'id': sortie.id}) }}">Afficher</a>
 
+                            {% if ((app.user and sortie.organisateur == app.user) or app.user.roles[0] =="ROLE_ADMIN") and sortie.etat.id ==1%}
+                                <a class="customBTN" id="publier" href="{{ path('app_publier', {'id': sortie.id}) }}">Publier</a>
+                            {% endif %}
 
                             {% if app.user and sortie.etat.id ==2 %}
 
@@ -65,24 +84,19 @@
                                 {% elseif sortie.dateLimiteInscription > ADJ  and sortie.participe|length < sortie.nbInscriptionMax %}
                                     <a class="customBTN" id="inscrire" href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
                                 {% endif %}
+                                {% if (app.user and sortie.organisateur == app.user) or app.user.roles[0] =="ROLE_ADMIN"%}
+                                    <a class='customBTNred' href="{{ path('app_annuler_sortie', {'id': sortie.id}) }}">Annuler la sortie</a>
+                                {% endif %}
                             {% endif  %}
-                            {% if (app.user and sortie.organisateur == app.user and sortie.etat.id == 2) or app.user.roles[0] =="ROLE_ADMIN"%}
-                                <a class='customBTNred' href="{{ path('app_annuler_sortie', {'id': sortie.id}) }}">Annuler la sortie</a>
-                            {% endif %}
+
+
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-
-    {% if app.user %}
         <a class="customBTN" href="{{ path('app_sorties') }}">Créer une sortie</a>
-    {% else %}
-        {# Si l'utilisateur n'est pas connecté, rediriger vers la page de login #}
-        <a class="customBTN" href="{{ path('app_login') }}">Créer une sortie</a>
-    {% endif %}
-
 {% endblock %}
 
 {% block script %}

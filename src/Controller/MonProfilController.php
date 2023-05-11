@@ -28,7 +28,7 @@ class MonProfilController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-            $this->addFlash('success', 'Le profil a été modifié avec succés !');
+            $this->addFlash('success', 'Le profil a été modifié avec succès !');
             return $this->redirectToRoute('app_mon_profil');
 
         }
@@ -51,7 +51,7 @@ class MonProfilController extends AbstractController
                 $newhashedPassword = $passwordHasher->hashPassword($participant, $plainPassword);
                 $participant->setPassword($newhashedPassword);
                 $entityManager->flush();
-                $this->addFlash('success', 'Le mot de passe a été modifié avec succés !');
+                $this->addFlash('success', 'Le mot de passe a été modifié avec succès !');
                 return $this->redirectToRoute('app_mon_profil');
             } else{
                 $this->addFlash('danger', 'Ancien mot de passe incorrect');
@@ -62,13 +62,18 @@ class MonProfilController extends AbstractController
            'formMdp' => $form->createView(),
         ]);
     }
-    #[Route('/profil/{id}', name: 'app_profil', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function profil(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/profil', name: 'app_profil', methods: ['GET','POST'])]
+    public function profil(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $profil = $entityManager->getRepository(Participants::class)->findOneBy(['id' => $id]);
-        return $this->render('mon_profil/Profil.html.twig', [
-            'profil' => $profil,
-        ]);
+        if ($request->isMethod('POST')) {
+            $id = $request->request->get('id');
+            $profil = $entityManager->getRepository(Participants::class)->findOneBy(['id' => $id]);
+            return $this->render('mon_profil/Profil.html.twig', [
+                'profil' => $profil
+            ]);
+        }else{
+            $this->addFlash('warning', 'Accès non autorisé');
+            return $this->redirectToRoute('app_home');
+        }
     }
-
 }

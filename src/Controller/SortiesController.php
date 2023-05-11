@@ -74,7 +74,7 @@ class SortiesController extends AbstractController
             $entityManager->flush();
 
             //Message de confirmation
-            $this->addFlash('success', 'Votre Sortie a été ajoutée avec succés !');
+            $this->addFlash('success', 'Votre sortie a été ajoutée avec succès !');
 
             //Redirection sur la page de détails
             return $this->redirectToRoute('app_home', [
@@ -102,7 +102,7 @@ class SortiesController extends AbstractController
         ]);
     }
 
-    #[Route('/annulersortie/{id}', name: 'app_annuler_sortie', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
+    #[Route('/annuler/{id}', name: 'app_annuler_sortie', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
     public function annuler(int $id, EntityManagerInterface $entityManager,Request $request): Response
     {
         $sortie = $entityManager->getRepository(Sorties::class)->findOneBy(['id' => $id]);
@@ -115,11 +115,23 @@ class SortiesController extends AbstractController
             $sortie->setEtat($etat);
             $entityManager->persist($sortie);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre Sortie a été annulée !');
+            $this->addFlash('success', 'Votre sortie a été annulée !');
         }
         return $this->render('sorties/annuler.html.twig', [
             'sortie'=> $sortie,
         ]);
+    }
+    #[Route('/publier/{id}', name: 'app_publier', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
+    public function publier(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $sortie = $entityManager->getRepository(Sorties::class)->findOneBy(['id' => $id]);
+        $etat = $entityManager->getRepository(Etats::class)->findOneBy(['id' => 2]);
+        $sortie->setEtat($etat);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        $this->addFlash('success', 'La sortie est publiée !');
+
+        return $this->redirectToRoute('app_home');
     }
 
 }
