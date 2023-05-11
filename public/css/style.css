@@ -162,3 +162,14 @@ td {
 .buttoninline{
     display: inline;
 }
+.photoProfil{
+    width: 200px; /* ajuster la largeur selon les besoins */
+    height: 200px; /* ajuster la hauteur selon les besoins */
+    border-radius: 50%; /* forme arrondie */
+    object-fit: cover; /* ajustement de la photo */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid ;
+    margin-bottom: 25px;
+}

@@ -20,17 +20,15 @@
                     </div>
                 {% endfor %}
             {% endfor %}
-
+            <div>
+                <img class="photoProfil box" src="{{ asset('photo/') ~ app.user.photo }}">
+            </div>
             {{ form_row(formProfil.pseudo) }}
             {{ form_row(formProfil.prenom) }}
             {{ form_row(formProfil.nom) }}
             {{ form_row(formProfil.telephone) }}
             {{ form_row(formProfil.mail) }}
             {{ form_row(formProfil.site) }}
-            <div>
-                <img clas=''src="{{ asset('photo/') ~ app.user.photo }}">
-                
-            </div>
             {{ form_row(formProfil.photo) }}
 
             <div class="text-center">
