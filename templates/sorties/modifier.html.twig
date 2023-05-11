@@ -1,8 +1,8 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ parent() }} - Ajouter une sortie{% endblock %}
+{% block title %}{{ parent() }} - Modifier la sortie {{ sortie.nom }}{% endblock %}
 
-{% block h1 %}Ajouter une sortie{% endblock %}
+{% block h1 %}Modifier la sortie {{ sortie.nom }}{% endblock %}
 
 {% block body %}
 
@@ -61,9 +61,9 @@
             <div class="text-center">
                 <input type="submit" class="customBTN d-inline-block" value="Enregistrer" name="action">
 
-
                 <input type="submit" class="customBTN d-inline-block" value="Publier" name="action">
 
+                <input type="submit" class="customBTNred d-inline-block" value="Supprimer" name="action">
 
                 <button onclick="location.href='{{ path('app_home') }}'" class="customBTNred d-inline-block" name="action">Annuler</button>
             </div>
@@ -79,8 +79,8 @@
         /* sur changement de la données dans la liste deroulante de ville ...*/
         $(document).on('change', '#form_type_sorties_ville', function () {
             /* chargement des lieux de la ville concernée */
-          chargerCP();
-          chargerLieux();
+            chargerCP();
+            chargerLieux();
         })
         $(document).on('change', '#selectNomLieu', function () {
             /* chargement des des infos concernant le lieu selectionné */

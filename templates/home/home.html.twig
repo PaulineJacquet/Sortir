@@ -14,6 +14,7 @@
             {{ form_row(filtresForm.dateFin)}}
         </div>
         <div class="col">
+            <br><br>
         {{ form_row(filtresForm.organisateur) }}
         {{ form_row(filtresForm.inscrit) }}
         {{ form_row(filtresForm.nonInscrit) }}
@@ -75,6 +76,7 @@
 
                             {% if ((app.user and sortie.organisateur == app.user) or app.user.roles[0] =="ROLE_ADMIN") and sortie.etat.id ==1%}
                                 <a class="customBTN" id="publier" href="{{ path('app_publier', {'id': sortie.id}) }}">Publier</a>
+                                <a class='customBTN' href="{{ path('app_modifier_sortie', {'id': sortie.id}) }}">Modifier la sortie</a>
                             {% endif %}
 
                             {% if app.user and sortie.etat.id ==2 %}

@@ -133,5 +133,62 @@ class SortiesController extends AbstractController
 
         return $this->redirectToRoute('app_home');
     }
+    #[Route('/modifier/{id}', name: 'app_modifier_sortie', requirements: ['id' => '\d+'], methods: ['POST','GET'])]
+    public function modifier(int $id, EntityManagerInterface $entityManager,Request $request): Response
+    {
+        $sortie = $entityManager->getRepository(Sorties::class)->findOneBy(['id' => $id]);
+        $form= $this->createForm(FormTypeSortiesType::class,$sortie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $action=$_POST['action'];
+            $nomLieu=$_POST['lieu'];
+
+            $req="";
+            switch ($action) {
+                case "Enregistrer":
+                    $req = "Créee";
+                    break;
+                case "Publier":
+                    $req = "Ouverte";
+                    break;
+                case "Supprimer":
+                    $entityManager->remove($sortie);
+                    $entityManager->flush();
+                    $this->addFlash('success', 'La sortie a été supprimée !');
+                    return $this->redirectToRoute('app_home');
+                    break;
+                case "Annuler":
+                    return $this->redirectToRoute('app_home');
+                    break;
+            }
+
+            $etat = $entityManager->getRepository(Etats::class)->findOneBy(['libelle' => $req]);
+            $lieu = $entityManager->getRepository(Lieu::class)->findOneBy(['nom'=>$nomLieu]);
+
+            $sortie->setEtat($etat);
+            $sortie->setLieu($lieu);
+
+            // dd($sortie);
+            $entityManager->persist($sortie);
+
+            //Validation de la transaction
+            $entityManager->flush();
+
+            //Message de confirmation
+            $this->addFlash('success', 'Votre sortie a été modifiée !');
+
+            //Redirection sur la page de détails
+            return $this->redirectToRoute('app_home', [
+
+            ]);
+        }
+        return $this->render('sorties/modifier.html.twig', [
+            'sortie'=> $sortie,
+            'formSortie' => $form->createView(),
+
+        ]);
+    }
 
 }
