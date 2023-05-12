@@ -78,7 +78,7 @@
 
                             {% if ((app.user and sortie.organisateur == app.user) or app.user.roles[0] =="ROLE_ADMIN") and sortie.etat.id ==1%}
                                 <a class="customBTN" id="publier" href="{{ path('app_publier', {'id': sortie.id}) }}">Publier</a>
-                                <a class='customBTN' href="{{ path('app_modifier_sortie', {'id': sortie.id}) }}">Modifier la sortie</a>
+                                <a class='customBTNyellow' href="{{ path('app_modifier_sortie', {'id': sortie.id}) }}">Modifier</a>
                             {% endif %}
 
                             {% if app.user and (sortie.etat.id ==2 or sortie.etat.id ==3)%}
@@ -89,7 +89,7 @@
                                     <a class="customBTN" id="inscrire" href="{{ path('app_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
                                 {% endif %}
                                 {% if (app.user and sortie.organisateur == app.user) or app.user.roles[0] =="ROLE_ADMIN"%}
-                                    <a class='customBTNred' href="{{ path('app_annuler_sortie', {'id': sortie.id}) }}">Annuler la sortie</a>
+                                    <a class='customBTNred' href="{{ path('app_annuler_sortie', {'id': sortie.id}) }}">Annuler</a>
                                 {% endif %}
                             {% endif  %}
 
