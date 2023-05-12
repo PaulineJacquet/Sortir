@@ -39,6 +39,7 @@ class SitesRepository extends ServiceEntityRepository
         }
     }
 
+    /*
     public function getSiteByParticpant(int $id){
         $query = $this->createQueryBuilder('site')
             ->innerJoin('site.participant','participant')
@@ -46,6 +47,7 @@ class SitesRepository extends ServiceEntityRepository
 
         return $query->getQuery()->getSingleResult();
     }
+    */
 
     public function findAllByID(): array
     {
