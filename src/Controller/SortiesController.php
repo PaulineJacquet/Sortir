@@ -35,9 +35,18 @@ class SortiesController extends AbstractController
         $sortie= new Sorties();
 
         $organisateur=$this->getUser();
+        $idOrga= $organisateur->getId();
+
+        $idSite=$organisateur->getSite();
         $sortie->setOrganisateur($organisateur);
 
-        $site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateur->getId());
+        $site=$entityManager->getRepository(Sites::class)->findOneBy(['id'=>$idSite]);
+        //dd($site);
+
+        //$site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateur->getId());
+
+
+        //dd($site);
         $sortie->setSite($site);
 
         $form= $this->createForm(FormTypeSortiesType::class,$sortie);
@@ -62,6 +71,8 @@ class SortiesController extends AbstractController
             }
 
             $etat=$entityManager->getRepository(Etats::class)->findOneBy(['libelle' => $req]);
+
+
             $lieu=$entityManager->getRepository(Lieu::class)->findOneBy(['nom'=>$nomLieu]);
 
             $sortie->setEtat($etat);
