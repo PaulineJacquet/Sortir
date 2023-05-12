@@ -32,23 +32,19 @@ class SortiesController extends AbstractController
     #[Route('/AddSortie', name: 'app_sorties')]
     public function AddSortie(Request $request,EntityManagerInterface $entityManager): Response
     {
+        //instancie une nouvelle sortie
         $sortie= new Sorties();
 
+        //on lui ajoute l'organisateur à savoir l'utilisateur actuellement connecté
         $organisateur=$this->getUser();
-        $idOrga= $organisateur->getId();
-
-        $idSite=$organisateur->getSite();
         $sortie->setOrganisateur($organisateur);
 
+        //on lui ajoute le site de rattachement
+        $idSite=$organisateur->getSite();
         $site=$entityManager->getRepository(Sites::class)->findOneBy(['id'=>$idSite]);
-        //dd($site);
-
-        //$site=$entityManager->getRepository(Sites::class)->getSiteByParticpant($organisateur->getId());
-
-
-        //dd($site);
         $sortie->setSite($site);
 
+        //création du formulaire
         $form= $this->createForm(FormTypeSortiesType::class,$sortie);
         $form->handleRequest($request);
 
@@ -70,15 +66,15 @@ class SortiesController extends AbstractController
                     break;
             }
 
-            $etat=$entityManager->getRepository(Etats::class)->findOneBy(['libelle' => $req]);
 
+            $etat=$entityManager->getRepository(Etats::class)->findOneBy(['libelle' => $req]);
 
             $lieu=$entityManager->getRepository(Lieu::class)->findOneBy(['nom'=>$nomLieu]);
 
+            //ajout de l'etat
             $sortie->setEtat($etat);
             $sortie->setLieu($lieu);
 
-           // dd($sortie);
             $entityManager->persist($sortie);
 
             //Validation de la transaction

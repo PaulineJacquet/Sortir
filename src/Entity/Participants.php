@@ -29,8 +29,9 @@ class Participants implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 30)]
     private ?string $prenom = null;
-
-    #[ORM\Column(length: 15, nullable: true)]
+    #[Assert\GreaterThan(9)]
+    #[Assert\LessThan(11)]
+    #[ORM\Column(length: 10, nullable: true)]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 20, unique:true)]
