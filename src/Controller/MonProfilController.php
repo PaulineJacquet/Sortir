@@ -68,7 +68,7 @@ class MonProfilController extends AbstractController
                 $this->addFlash('success', 'Le mot de passe a été modifié avec succès !');
                 return $this->redirectToRoute('app_mon_profil');
             } else{
-                $this->addFlash('danger', 'Ancien mot de passe incorrect');
+                $this->addFlash('danger', 'Mot de passe incorrect');
             }
         }
 

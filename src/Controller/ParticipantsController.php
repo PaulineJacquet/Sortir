@@ -44,7 +44,7 @@ class ParticipantsController extends AbstractController
              */
         $participantsForm = $participantsForm->handleRequest($request);
 
-            /*---------- AJOUT D'UN PARTICIPANT ----------*/
+            /*-------------------- AJOUT D'UN PARTICIPANT --------------------*/
                 /*
                  * Condition vérifiant si le formulaire a été soumis et validé
                  */

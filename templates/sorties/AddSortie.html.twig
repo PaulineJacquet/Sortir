@@ -91,7 +91,7 @@
                 method: "GET",
                 url: "/sortir/public/ajax/rechercheCodePostal", /* appel de la fonction rechercheLieuByVille du controlleur AjaxController*/
                 data: {
-                    'ville_id' : $('#form_type_sorties_ville').val() //recupération de l'id de la ville dans la data
+                     'ville_id' :$('#form_type_sorties_ville').val() //recupération de l'id de la ville dans la data
                 }
             }).done(function (response) {
                 $('#CodePostal').html(''); //initialisation de du code postal
