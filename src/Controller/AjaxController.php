@@ -24,8 +24,8 @@ class AjaxController extends AbstractController
     #[NoReturn] #[Route('/sortir/public/ajax/rechercheCodePostal', name: 'app_ajax_cp', methods: ['GET'])]
     public function RechercherCP(Request $req,EntityManagerInterface $em): Response
     {
-        $Idville=$req->query->get('ville_id');
-        $ville=$em->getRepository(Ville::class)->findOneBy(['id'=>$Idville]);
+        $idville=$req->query->get('ville_id');
+        $ville=$em->getRepository(Ville::class)->findOneBy(['id'=>$idville]);
         $cp=$ville->getCodePostal();
         return  new JsonResponse($cp);
     }
@@ -62,7 +62,6 @@ class AjaxController extends AbstractController
             'latitude' => $lieu->getLatitude(),
             'longitude' =>$lieu->getLongitude()
         );
-
 
         return new JsonResponse($infos);
     }

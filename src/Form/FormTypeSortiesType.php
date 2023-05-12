@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 
 class FormTypeSortiesType extends AbstractType
 {
@@ -32,7 +33,6 @@ class FormTypeSortiesType extends AbstractType
             'label'=>'Debut de la sortie ',
             'required'=>true,
             'html5' => true,
-            'html5' => true,
             'widget' => 'single_text',
            'attr' => ['class' => 'datepicker'],
         ]);
@@ -40,6 +40,7 @@ class FormTypeSortiesType extends AbstractType
         $builder->add('duree',IntegerType::class,[
             'label'=>'Durée de la sortie  ',
             'attr'=>['placeholder'=>' la durée de votre sortie en heures'],
+
 
         ]);
 
@@ -53,12 +54,15 @@ class FormTypeSortiesType extends AbstractType
 
         $builder->add('nbInscriptionMax',IntegerType::class,[
             'label'=>'Nb de places   ',
-            'required'=>true
+            'required'=>true,
+
+
         ]);
 
         $builder->add('infosSortie',TextareaType::class,[
             'label'=>'Infos sortie   '
         ]);
+
         /*
         $builder ->add('lieu',EntityType::class,[
             'label' => 'lieu :',

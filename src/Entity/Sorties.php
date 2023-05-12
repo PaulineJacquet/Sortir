@@ -24,14 +24,16 @@ class Sorties
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
-    #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThan(0)]
+    #[ORM\Column(nullable: true, options:['unsigned'=>true])]
     private ?int $duree = null;
 
     #[Assert\LessThan(propertyPath: 'dateHeureDebut')]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
-    #[ORM\Column]
+    #[Assert\GreaterThan(0)]
+    #[ORM\Column(options:['unsigned'=>true])]
     private ?int $nbInscriptionMax = null;
 
     #[ORM\Column(length: 500, nullable: true)]
