@@ -88,6 +88,7 @@
     </main>
 
     {# --------------------------------- FOOTER --------------------------------- #}
+    {% if app.user %}
     <footer class="mt-5 text-center text-white">
 
         <div class="container">
@@ -132,7 +133,7 @@
             </section>
 
         </div>
-
+        {% endif %}
         <div class="copyright text-center pb-3 pt-4">
             <p>
                 &copy; {{ "now"|date("Y")}} <strong>NightOwl</strong>
